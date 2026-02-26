@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>강 Family AI Hub - AI Prompts for Connection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-main: linear-gradient(135deg, #FAFAF6 0%, #F5F2EC 100%);
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: 1px solid rgba(0, 0, 0, 0.06);
+            --card-blur: blur(8px);
+            --card-radius: 12px;
+            --color-appa: #7E9BAF;
+            --color-umma: #8FA889;
+            --color-david: #C4A872;
+            --color-nayeon: #B8847C;
+            --color-family: #9B88A8;
+            --font-serif-kr: 'Noto Serif KR', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            background: var(--bg-main);
+            font-family: var(--font-body);
+            color: #1a1a1a;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay SVG */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise" /></filter><rect width="100" height="100" fill="%23ffffff" filter="url(%23noise)" opacity="0.035"/></svg>');
+            background-size: 200px 200px;
+            pointer-events: none;
+            mix-blend-mode: multiply;
+            z-index: 1;
+            opacity: 0.035;
+        }
+
+        /* Top Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-appa), var(--color-umma), var(--color-david), var(--color-nayeon), var(--color-family));
+            width: 0%;
+            z-index: 1001;
+            transition: width 0.1s ease-out;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(250, 250, 246, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+
+        .top-bar-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .top-bar-title {
+            font-family: var(--font-serif-kr);
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .top-bar-subtitle {
+            font-size: 12px;
+            color: #666;
+            letter-spacing: 0.5px;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: #1a1a1a;
+            transition: all 0.3s ease;
+        }
+
+        /* Main Layout */
+        .container {
+            display: flex;
+            position: relative;
+            margin-top: 70px;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 70px;
+            width: 280px;
+            height: calc(100vh - 70px);
+            background: rgba(250, 250, 246, 0.95);
+            backdrop-filter: blur(8px);
+            border-right: 1px solid rgba(0, 0, 0, 0.06);
+            overflow-y: auto;
+            padding: 20px;
+            z-index: 500;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.mobile-hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-section-title {
+            font-family: var(--font-serif-kr);
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a1a;
+            cursor: pointer;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .sidebar-section-title:hover {
+            opacity: 0.7;
+        }
+
+        .sidebar-color-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .sidebar-toggle-icon {
+            font-size: 11px;
+            transition: transform 0.2s ease;
+            margin-left: auto;
+        }
+
+        .sidebar-section.collapsed .sidebar-toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .sidebar-prompts {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .sidebar-section.collapsed .sidebar-prompts {
+            max-height: 0;
+        }
+
+        .sidebar-prompt {
+            font-size: 12px;
+            padding: 8px 12px;
+            margin-left: 12px;
+            color: #666;
+            cursor: pointer;
+            border-left: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-prompt:hover {
+            color: #1a1a1a;
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .sidebar-prompt.active {
+            color: #1a1a1a;
+            font-weight: 600;
+            border-left-color: currentColor;
+        }
+
+        .sidebar-prompt[data-color-appa].active {
+            color: var(--color-appa);
+            border-left-color: var(--color-appa);
+        }
+
+        .sidebar-prompt[data-color-umma].active {
+            color: var(--color-umma);
+            border-left-color: var(--color-umma);
+        }
+
+        .sidebar-prompt[data-color-david].active {
+            color: var(--color-david);
+            border-left-color: var(--color-david);
+        }
+
+        .sidebar-prompt[data-color-nayeon].active {
+            color: var(--color-nayeon);
+            border-left-color: var(--color-nayeon);
+        }
+
+        .sidebar-prompt[data-color-family].active {
+            color: var(--color-family);
+            border-left-color: var(--color-family);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif-kr);
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .hero-members {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .hero-member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-member-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-member-avatar img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-member-name {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+
+        .hero-credit {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 0.5px;
+        }
+
+        /* Section Headers */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .section-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(0, 0, 0, 0.06);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .section-avatar img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .section-info {
+            flex: 1;
+        }
+
+        .section-hero-name {
+            font-family: var(--font-serif-kr);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .section-animal {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .section-message {
+            font-style: italic;
+            color: #555;
+            padding: 12px;
+            border-left: 3px solid;
+            background: rgba(255, 255, 255, 0.5);
+            margin-top: 12px;
+            line-height: 1.6;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: var(--card-blur);
+            border: var(--card-border);
+            border-radius: var(--card-radius);
+            padding: 28px;
+            position: relative;
+        }
+
+        .card-title {
+            font-family: var(--font-serif-kr);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .card-prompt-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .card-prompt {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.8;
+            background: rgba(0, 0, 0, 0.03);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-left: 3px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .copy-button {
+            background: rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-body);
+        }
+
+        .copy-button:hover {
+            background: rgba(0, 0, 0, 0.12);
+        }
+
+        .copy-button.copied {
+            background: #4a4a4a;
+            color: white;
+            border-color: #4a4a4a;
+        }
+
+        .why-toggle {
+            background: transparent;
+            border: none;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            padding: 0;
+            font-family: var(--font-body);
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+
+        .why-toggle:hover {
+            color: #1a1a1a;
+        }
+
+        .why-toggle::after {
+            content: ' ▼';
+            font-size: 10px;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .why-toggle.open::after {
+            transform: rotate(180deg);
+        }
+
+        .why-matters {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .why-matters.open {
+            max-height: 500px;
+        }
+
+        .why-matters-content {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.7;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .example-use {
+            background: rgba(0, 0, 0, 0.03);
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #555;
+            margin-top: 12px;
+            line-height: 1.6;
+            border-left: 2px solid rgba(0, 0, 0, 0.08);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 40px 20px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            line-height: 1.8;
+            margin-left: 280px;
+            margin-top: 40px;
+        }
+
+        .footer-main {
+            font-family: var(--font-serif-kr);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .footer-credit {
+            font-size: 11px;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .sidebar {
+                width: 240px;
+            }
+
+            .footer {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                z-index: 999;
+                height: calc(100vh - 70px);
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-members {
+                gap: 12px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .section-message {
+                text-align: left;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .top-bar-title {
+                font-size: 18px;
+            }
+
+            .top-bar-subtitle {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 16px;
+            }
+
+            .hero {
+                padding: 20px 10px;
+            }
+
+            .hero-title {
+                font-size: 24px;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+
+            .section-header {
+                margin-bottom: 16px;
+            }
+
+            .section-avatar {
+                width: 80px;
+                height: 80px;
+            }
+
+            .section-hero-name {
+                font-size: 20px;
+            }
+
+            .card-prompt {
+                font-size: 12px;
+            }
+
+            .card-title {
+                font-size: 16px;
+            }
+        }
+
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <div class="top-bar-title">강 Family AI Hub</div>
+            <div class="top-bar-subtitle">4개국, 하나의 가족</div>
+        </div>
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <!-- Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <!-- APPA Section -->
+            <div class="sidebar-section expanded" data-section="appa">
+                <div class="sidebar-section-title">
+                    <div class="sidebar-color-dot" style="background: var(--color-appa);"></div>
+                    <span>아빠 The Protector</span>
+                    <span class="sidebar-toggle-icon">▼</span>
+                </div>
+                <div class="sidebar-prompts">
+                    <div class="sidebar-prompt" data-section="appa" data-id="1-1">업무 이메일 도우미</div>
+                    <div class="sidebar-prompt" data-section="appa" data-id="1-2">기술 보고서 다듬기</div>
+                    <div class="sidebar-prompt" data-section="appa" data-id="1-3">스트레스 해소 대화</div>
+                    <div class="sidebar-prompt" data-section="appa" data-id="1-4">건강 관리 코치</div>
+                    <div class="sidebar-prompt" data-section="appa" data-id="1-5">새로운 기술 배우기</div>
+                </div>
+            </div>
+
+            <!-- UMMA Section -->
+            <div class="sidebar-section expanded" data-section="umma">
+                <div class="sidebar-section-title">
+                    <div class="sidebar-color-dot" style="background: var(--color-umma);"></div>
+                    <span>엄마+하쿠 The Nurturer</span>
+                    <span class="sidebar-toggle-icon">▼</span>
+                </div>
+                <div class="sidebar-prompts">
+                    <div class="sidebar-prompt" data-section="umma" data-id="2-1">수업 준비 도우미</div>
+                    <div class="sidebar-prompt" data-section="umma" data-id="2-2">학부모 소통 도우미</div>
+                    <div class="sidebar-prompt" data-section="umma" data-id="2-3">하쿠 건강 일기</div>
+                    <div class="sidebar-prompt" data-section="umma" data-id="2-4">영어 공부 파트너</div>
+                    <div class="sidebar-prompt" data-section="umma" data-id="2-5">나를 위한 시간</div>
+                </div>
+            </div>
+
+            <!-- DAVID Section -->
+            <div class="sidebar-section expanded" data-section="david">
+                <div class="sidebar-section-title">
+                    <div class="sidebar-color-dot" style="background: var(--color-david);"></div>
+                    <span>오빠 David The Guardian</span>
+                    <span class="sidebar-toggle-icon">▼</span>
+                </div>
+                <div class="sidebar-prompts">
+                    <div class="sidebar-prompt" data-section="david" data-id="3-1">Work Problem Solver</div>
+                    <div class="sidebar-prompt" data-section="david" data-id="3-2">Career Growth Navigator</div>
+                    <div class="sidebar-prompt" data-section="david" data-id="3-3">Daily French</div>
+                    <div class="sidebar-prompt" data-section="david" data-id="3-4">나연이랑 대화하기</div>
+                </div>
+            </div>
+
+            <!-- NAYEON Section -->
+            <div class="sidebar-section expanded" data-section="nayeon">
+                <div class="sidebar-section-title">
+                    <div class="sidebar-color-dot" style="background: var(--color-nayeon);"></div>
+                    <span>나연 The Connector</span>
+                    <span class="sidebar-toggle-icon">▼</span>
+                </div>
+                <div class="sidebar-prompts">
+                    <div class="sidebar-prompt" data-section="nayeon" data-id="4-1">연구 글쓰기 코치</div>
+                    <div class="sidebar-prompt" data-section="nayeon" data-id="4-2">아이디어 발전소</div>
+                    <div class="sidebar-prompt" data-section="nayeon" data-id="4-3">발표 준비 도우미</div>
+                    <div class="sidebar-prompt" data-section="nayeon" data-id="4-4">커리어+라이프 디자인</div>
+                    <div class="sidebar-prompt" data-section="nayeon" data-id="4-5">오늘의 집중 모드</div>
+                </div>
+            </div>
+
+            <!-- FAMILY Section -->
+            <div class="sidebar-section expanded" data-section="family">
+                <div class="sidebar-section-title">
+                    <div class="sidebar-color-dot" style="background: var(--color-family);"></div>
+                    <span>우리 가족 강 Family League</span>
+                    <span class="sidebar-toggle-icon">▼</span>
+                </div>
+                <div class="sidebar-prompts">
+                    <div class="sidebar-prompt" data-section="family" data-id="5-1">화상전화 도우미</div>
+                    <div class="sidebar-prompt" data-section="family" data-id="5-2">가족 추억 타임캡슐</div>
+                    <div class="sidebar-prompt" data-section="family" data-id="5-3">가족 만남 플래너</div>
+                    <div class="sidebar-prompt" data-section="family" data-id="5-4">가족 레시피 북</div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Hero Section -->
+            <div class="hero">
+                <h1 class="hero-title">강 Family Superhero League</h1>
+                <p class="hero-subtitle">AI로 연결하는 4개국의 마음</p>
+
+                <div class="hero-members">
+                    <div class="hero-member">
+                        <div class="hero-member-avatar">
+                            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="60" height="60">
+  <!-- Background circle -->
+  <circle cx="30" cy="30" r="28" fill="#dce8ef" stroke="#7E9BAF" stroke-width="1"/>
+  <!-- Face -->
+  <circle cx="30" cy="28" r="16" fill="#7E9BAF"/>
+  <!-- Left ear -->
+  <circle cx="18" cy="12" r="5" fill="#7E9BAF"/>
+  <!-- Right ear -->
+  <circle cx="42" cy="12" r="5" fill="#7E9BAF"/>
+  <!-- Left eye -->
+  <circle cx="24" cy="26" r="2.5" fill="#fff"/>
+  <!-- Right eye -->
+  <circle cx="36" cy="26" r="2.5" fill="#fff"/>
+  <!-- Left pupil -->
+  <circle cx="24" cy="26" r="1.5" fill="#1a1a1a"/>
+  <!-- Right pupil -->
+  <circle cx="36" cy="26" r="1.5" fill="#1a1a1a"/>
+  <!-- Small smile -->
+  <path d="M 28 33 Q 30 35 32 33" stroke="#1a1a1a" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <!-- Snout highlight -->
+  <ellipse cx="30" cy="36" rx="4" ry="3" fill="rgba(255,255,255,0.3)"/>
+</svg>
+                        </div>
+                        <div class="hero-member-name">아빠</div>
+                    </div>
+                    <div class="hero-member">
+                        <div class="hero-member-avatar">
+                            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="60" height="60">
+  <!-- Background circle -->
+  <circle cx="30" cy="30" r="28" fill="#e0ead9" stroke="#8FA889" stroke-width="1"/>
+  <!-- Face -->
+  <circle cx="30" cy="30" r="16" fill="#8FA889"/>
+  <!-- Left antler -->
+  <line x1="20" y1="12" x2="16" y2="5" stroke="#8FA889" stroke-width="2" stroke-linecap="round"/>
+  <line x1="16" y1="5" x2="14" y2="0" stroke="#8FA889" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Right antler -->
+  <line x1="40" y1="12" x2="44" y2="5" stroke="#8FA889" stroke-width="2" stroke-linecap="round"/>
+  <line x1="44" y1="5" x2="46" y2="0" stroke="#8FA889" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Left eye -->
+  <circle cx="24" cy="27" r="3" fill="#fff"/>
+  <!-- Right eye -->
+  <circle cx="36" cy="27" r="3" fill="#fff"/>
+  <!-- Left pupil -->
+  <circle cx="24" cy="27" r="1.8" fill="#1a1a1a"/>
+  <!-- Right pupil -->
+  <circle cx="36" cy="27" r="1.8" fill="#1a1a1a"/>
+  <!-- Gentle smile -->
+  <path d="M 27 35 Q 30 37 33 35" stroke="#1a1a1a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <!-- Snout -->
+  <circle cx="30" cy="38" r="2" fill="rgba(255,255,255,0.4)"/>
+</svg>
+                        </div>
+                        <div class="hero-member-name">엄마</div>
+                    </div>
+                    <div class="hero-member">
+                        <div class="hero-member-avatar">
+                            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="60" height="60">
+  <!-- Background circle -->
+  <circle cx="30" cy="30" r="28" fill="#efe5d1" stroke="#C4A872" stroke-width="1"/>
+  <!-- Face -->
+  <circle cx="30" cy="28" r="16" fill="#C4A872"/>
+  <!-- Left ear - pointy -->
+  <polygon points="18,12 15,0 20,8" fill="#C4A872"/>
+  <!-- Right ear - pointy -->
+  <polygon points="42,12 45,0 40,8" fill="#C4A872"/>
+  <!-- Mask pattern - dark shade around eyes -->
+  <ellipse cx="24" cy="26" rx="4" ry="5" fill="rgba(0,0,0,0.2)"/>
+  <ellipse cx="36" cy="26" rx="4" ry="5" fill="rgba(0,0,0,0.2)"/>
+  <!-- Left eye -->
+  <circle cx="24" cy="26" r="3" fill="#fff"/>
+  <!-- Right eye -->
+  <circle cx="36" cy="26" r="3" fill="#fff"/>
+  <!-- Left pupil -->
+  <circle cx="24" cy="26" r="1.8" fill="#1a1a1a"/>
+  <!-- Right pupil -->
+  <circle cx="36" cy="26" r="1.8" fill="#1a1a1a"/>
+  <!-- Tongue out -->
+  <ellipse cx="30" cy="37" rx="3" ry="4" fill="#ff6b9d"/>
+  <!-- Smile line -->
+  <path d="M 28 34 Q 30 35 32 34" stroke="#1a1a1a" stroke-width="1" fill="none" stroke-linecap="round"/>
+</svg>
+                        </div>
+                        <div class="hero-member-name">David</div>
+                    </div>
+                    <div class="hero-member">
+                        <div class="hero-member-avatar">
+                            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="60" height="60">
+  <!-- Background circle -->
+  <circle cx="30" cy="30" r="28" fill="#eeddd9" stroke="#B8847C" stroke-width="1"/>
+  <!-- Face -->
+  <circle cx="30" cy="32" r="15" fill="#B8847C"/>
+  <!-- Left long ear -->
+  <ellipse cx="20" cy="8" rx="4" ry="10" fill="#B8847C"/>
+  <!-- Right long ear -->
+  <ellipse cx="40" cy="8" rx="4" ry="10" fill="#B8847C"/>
+  <!-- Left eye - big -->
+  <circle cx="24" cy="29" r="3.5" fill="#fff"/>
+  <!-- Right eye - big -->
+  <circle cx="36" cy="29" r="3.5" fill="#fff"/>
+  <!-- Left pupil -->
+  <circle cx="24" cy="29" r="2" fill="#1a1a1a"/>
+  <!-- Right pupil -->
+  <circle cx="36" cy="29" r="2" fill="#1a1a1a"/>
+  <!-- Tiny nose -->
+  <circle cx="30" cy="37" r="1.5" fill="#1a1a1a"/>
+  <!-- Sweet smile -->
+  <path d="M 27 40 Q 30 42 33 40" stroke="#1a1a1a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <!-- Whiskers -->
+  <line x1="15" y1="32" x2="10" y2="31" stroke="#1a1a1a" stroke-width="0.8" stroke-linecap="round"/>
+  <line x1="45" y1="32" x2="50" y2="31" stroke="#1a1a1a" stroke-width="0.8" stroke-linecap="round"/>
+</svg>
+                        </div>
+                        <div class="hero-member-name">나연</div>
+                    </div>
+                </div>
+
+                <div class="hero-credit">opus × bella | 2026</div>
+            </div>
+
+            <!-- APPA SECTION -->
+            <div class="section" id="section-appa">
+                <div class="section-header">
+                    <div class="section-avatar">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="46" fill="#dce8ef" stroke="#7E9BAF" stroke-width="2"/>
+  <!-- Face -->
+  <circle cx="50" cy="47" r="27" fill="#7E9BAF"/>
+  <!-- Left ear -->
+  <circle cx="30" cy="20" r="8" fill="#7E9BAF"/>
+  <!-- Right ear -->
+  <circle cx="70" cy="20" r="8" fill="#7E9BAF"/>
+  <!-- Left eye -->
+  <circle cx="40" cy="44" r="4" fill="#fff"/>
+  <!-- Right eye -->
+  <circle cx="60" cy="44" r="4" fill="#fff"/>
+  <!-- Left pupil -->
+  <circle cx="40" cy="44" r="2.4" fill="#1a1a1a"/>
+  <!-- Right pupil -->
+  <circle cx="60" cy="44" r="2.4" fill="#1a1a1a"/>
+  <!-- Small smile -->
+  <path d="M 45 56 Q 50 59 55 56" stroke="#1a1a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Snout highlight -->
+  <ellipse cx="50" cy="61" rx="7" ry="5" fill="rgba(255,255,255,0.3)"/>
+</svg>
+                    </div>
+                    <div class="section-info">
+                        <div class="section-hero-name" style="color: var(--color-appa);">The Protector / 수호자</div>
+                        <div class="section-animal">Bear 곰</div>
+                        <div class="section-message" style="border-left-color: var(--color-appa);">아빠, 이메일 쓸 때 이거 써봐. 막내딸이 만들었어 ♡</div>
+                    </div>
+                </div>
+
+                <div class="cards">
+                    <!-- 1-1 -->
+                    <div class="card" id="card-1-1">
+                        <div class="card-title">업무 이메일 도우미 / Work Email Assistant</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a professional communication coach for a senior petroleum engineer working in Saudi Arabia. I will give you the context of an email I need to write — the situation, who I'm writing to, and what I want to say. Help me draft the email in clear, professional English. Use active voice, concrete language, and keep sentences short. Avoid jargon unless the recipient is technical. If the tone needs to be diplomatic, show me how to soften without being vague. Always suggest a clear subject line.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="1-1">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> 아빠는 석유공학 엔지니어로 사우디에서 영어로 일함. Warren et al.의 "curse of knowledge" — 전문가일수록 비전문가에게 설명하기 어려운 현상을 직접 해결.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "I need to tell my manager the project will be delayed by two weeks because the valve supplier didn't deliver on time. I want to sound professional but not blame anyone."</div>
+                    </div>
+
+                    <!-- 1-2 -->
+                    <div class="card" id="card-1-2">
+                        <div class="card-title">기술 보고서 다듬기 / Technical Report Polisher</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a technical writing editor for engineering reports. I'll paste a section of my report. Rewrite it for two audiences: (1) executives who need the key takeaway in the first paragraph, and (2) engineers who need the details. Use concrete numbers instead of vague qualifiers. Replace passive voice with active voice. If I used jargon, add a brief parenthetical explanation. Keep the original meaning but make it clearer. Format with scannable headings.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="1-2">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Cochrane의 핵심 — readers are busy and impatient. 경영진은 Executive Summary만 읽음.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "Here's my quarterly safety report. The VP will read pages 1-2. Make those pages clear to someone who doesn't know what a pressure relief valve does."</div>
+                    </div>
+
+                    <!-- 1-3 -->
+                    <div class="card" id="card-1-3">
+                        <div class="card-title">스트레스 해소 대화 / After-Work Decompression</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a warm, grounded conversation partner. I'm an engineer living alone in Saudi Arabia, far from my family in Korea. When I share something that happened at work or in life, first acknowledge what I'm feeling — don't jump to solutions. Then help me see the situation from a different angle. If I'm stressed, help me reframe the stress as a signal, not an enemy. End with one small, concrete thing I can do in the next 10 minutes. Talk to me like a caring friend, not a therapist.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="1-3">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Crum의 stress mindset reappraisal — 스트레스를 적이 아닌 신호로 재해석.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "오늘 회의에서 내 제안이 무시당한 것 같아. 화가 나는데 내가 너무 예민한 건지 모르겠어."</div>
+                    </div>
+
+                    <!-- 1-4 -->
+                    <div class="card" id="card-1-4">
+                        <div class="card-title">건강 관리 코치 / Health & Wellness Check-in</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a practical health advisor for a man in his 50s working long desk hours in a hot climate (Saudi Arabia). I'll describe my current situation — how my body feels, my schedule, what I've been eating. Give me 1-2 specific, time-boxed actions I can take today. No gym required. Think: desk stretches (describe the exact movement), hydration reminders, sleep adjustments. Explain WHY each action helps in one sentence. Frame health as maintenance, not punishment — my body is an engine that runs better with care.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="1-4">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Crum의 mindset-physiology — 건강 행동은 '해야 하는 것'이 아니라 '내 몸이 더 잘 작동하게 만드는 것.'
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "I've been sitting at my desk for 10 hours a day and my back is killing me. I don't have time for a gym."</div>
+                    </div>
+
+                    <!-- 1-5 -->
+                    <div class="card" id="card-1-5">
+                        <div class="card-title">새로운 기술 배우기 / Learn Something New Today</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a patient teacher who explains complex topics to curious professionals. I'm an experienced petroleum engineer who wants to learn about new technologies and trends. When I ask about something, start with a real-world example I can relate to from engineering. Then explain the concept in plain language — no buzzwords. If there's jargon, define it in parentheses. End with: 'Want me to go deeper, or is that enough for now?' Respect my expertise while bridging me to new territory.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="1-5">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Mollick의 AI tutor 역할 + Dweck/Yeager의 growth mindset — '아직 모르는 것'이지 '못하는 것'이 아님.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "I keep hearing about AI in oil and gas. Explain it to me like I'm an engineer who's been doing this for 30 years and hasn't had time to look into it."</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UMMA SECTION -->
+            <div class="section" id="section-umma">
+                <div class="section-header">
+                    <div class="section-avatar">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="46" fill="#e0ead9" stroke="#8FA889" stroke-width="2"/>
+  <!-- Face -->
+  <circle cx="50" cy="50" r="27" fill="#8FA889"/>
+  <!-- Left antler -->
+  <line x1="33" y1="20" x2="27" y2="8" stroke="#8FA889" stroke-width="3" stroke-linecap="round"/>
+  <line x1="27" y1="8" x2="23" y2="0" stroke="#8FA889" stroke-width="2" stroke-linecap="round"/>
+  <!-- Right antler -->
+  <line x1="67" y1="20" x2="73" y2="8" stroke="#8FA889" stroke-width="3" stroke-linecap="round"/>
+  <line x1="73" y1="8" x2="77" y2="0" stroke="#8FA889" stroke-width="2" stroke-linecap="round"/>
+  <!-- Left eye -->
+  <circle cx="40" cy="46" r="5" fill="#fff"/>
+  <!-- Right eye -->
+  <circle cx="60" cy="46" r="5" fill="#fff"/>
+  <!-- Left pupil -->
+  <circle cx="40" cy="46" r="3" fill="#1a1a1a"/>
+  <!-- Right pupil -->
+  <circle cx="60" cy="46" r="3" fill="#1a1a1a"/>
+  <!-- Gentle smile -->
+  <path d="M 43 58 Q 50 62 57 58" stroke="#1a1a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Snout -->
+  <circle cx="50" cy="65" r="3.5" fill="rgba(255,255,255,0.4)"/>
+</svg>
+                    </div>
+                    <div class="section-info">
+                        <div class="section-hero-name" style="color: var(--color-umma);">The Nurturer + Agent Purr / 돌봄의 여왕</div>
+                        <div class="section-animal">Deer 사슴 + Cat 고양이</div>
+                        <div class="section-message" style="border-left-color: var(--color-umma);">엄마, 수업 준비할 때 이거 써봐. 영어 표현도 같이 배울 수 있어!</div>
+                    </div>
+                </div>
+
+                <div class="cards">
+                    <!-- 2-1 -->
+                    <div class="card" id="card-2-1">
+                        <div class="card-title">수업 준비 도우미 / Lesson Plan Helper</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a creative teaching assistant for an experienced Korean elementary school teacher. I'll tell you the subject, grade level, and topic. Design a lesson plan with hands-on activities students can touch, see, and do. Include: learning objectives (2-3), a 5-minute hook activity, the main lesson flow (40 minutes), and one assessment idea. Present everything in both Korean and English so I can learn teaching vocabulary in English. Be practical — use materials available in a typical Korean elementary school.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="2-1">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Mollick의 AI teammate 역할. 엄마의 교육 경험 + AI의 자료 접근성 = hybrid intelligence.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "3학년 과학 시간에 '식물의 한살이'를 가르쳐야 해. 아이들이 직접 만져보고 관찰할 수 있는 활동이 있으면 좋겠어."</div>
+                    </div>
+
+                    <!-- 2-2 -->
+                    <div class="card" id="card-2-2">
+                        <div class="card-title">학부모 소통 도우미 / Parent Communication Helper</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a communication specialist for Korean elementary school teachers. I need to write a message to parents — it could be a 가정통신문, a consultation note, or an event announcement. I'll describe the situation and what I need to communicate. Write it in warm, clear Korean that any parent can understand without education jargon. Also provide an English version below it so I can practice professional English. Format it so parents can scan it quickly — the most important information first, details after.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="2-2">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Warren et al.의 'curse of knowledge' — 교사는 교육 전문가라 학부모에게 무의식적으로 전문용어를 씀.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "다음 주 현장체험학습 안내문을 써야 해. 준비물이 많은데 학부모들이 헷갈리지 않게."</div>
+                    </div>
+
+                    <!-- 2-3 -->
+                    <div class="card" id="card-2-3">
+                        <div class="card-title">하쿠 건강 일기 / Haku Health & Happiness Journal</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a knowledgeable cat care advisor. I have a Scottish Straight/Persian mix cat named 하쿠 (Haku), born February 20, 2020 — he's a neutered male with long gray-and-white fur and a slightly flat face. When I describe his behavior, eating, or symptoms, help me understand what might be going on. Distinguish between 'normal cat things' and 'worth watching.' If something needs a vet visit, say so clearly. Also teach me the English words for his symptoms so I can look them up or describe them to an English-speaking vet. Always ask: 'Is this different from his usual behavior?'</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="2-3">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> 고양이는 아플 때 숨김. 관찰 데이터를 의미 있는 패턴으로 변환.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "하쿠가 이틀째 밥을 조금만 먹어. 평소에는 잘 먹는 애인데. 토하지는 않았고 물은 마셔."</div>
+                    </div>
+
+                    <!-- 2-4 -->
+                    <div class="card" id="card-2-4">
+                        <div class="card-title">영어 공부 파트너 / English Learning Partner</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a gentle, encouraging English tutor for a Korean elementary school teacher. I want to practice English through conversation about my daily life — school, cooking, 하쿠, and everyday situations. When I make mistakes, correct them kindly: show me what I said, what's more natural, and explain WHY in one sentence (in Korean if needed). Celebrate what I get right. Keep the conversation going naturally — don't turn it into a grammar lesson. If I switch to Korean mid-sentence, that's okay — help me find the English words I was looking for.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="2-4">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Falk의 self-relevance — '영어를 배워야 한다'보다 '아이들에게 영어 동화를 읽어줄 수 있다'가 더 동기부여됨.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "오늘 학교에서 있었던 일을 영어로 말해보고 싶어. 고쳐주되, 내가 틀린 부분을 왜 그런지 쉽게 설명해줘."</div>
+                    </div>
+
+                    <!-- 2-5 -->
+                    <div class="card" id="card-2-5">
+                        <div class="card-title">나를 위한 시간 / Self-Care for 선생님</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a self-care companion for a hardworking elementary school teacher in Korea who takes care of everyone else first. When I say I'm tired or stressed, don't give me a long list. Give me ONE thing I can do right now — with a specific time (5 minutes, 15 minutes, 30 minutes). It could be a breathing exercise, a simple stretch, a cup of tea ritual, or something I can do with my cat 하쿠. Explain it in simple steps. Remind me that rest is not laziness — it's how I recharge to keep taking care of others.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="2-5">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> 교사는 돌봄 노동자. Crum의 stress reappraisal — rest as recharging, not weakness.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "오늘 너무 지쳤어. 30분 안에 할 수 있는 뭔가가 필요해. 하쿠랑 같이 할 수 있으면 더 좋고."</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DAVID SECTION -->
+            <div class="section" id="section-david">
+                <div class="section-header">
+                    <div class="section-avatar">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="46" fill="#efe5d1" stroke="#C4A872" stroke-width="2"/>
+  <!-- Face -->
+  <circle cx="50" cy="47" r="27" fill="#C4A872"/>
+  <!-- Left ear - pointy -->
+  <polygon points="30,20 25,0 33,13" fill="#C4A872"/>
+  <!-- Right ear - pointy -->
+  <polygon points="70,20 75,0 67,13" fill="#C4A872"/>
+  <!-- Mask pattern - dark shade around eyes -->
+  <ellipse cx="40" cy="44" rx="7" ry="8" fill="rgba(0,0,0,0.2)"/>
+  <ellipse cx="60" cy="44" rx="7" ry="8" fill="rgba(0,0,0,0.2)"/>
+  <!-- Left eye -->
+  <circle cx="40" cy="44" r="5" fill="#fff"/>
+  <!-- Right eye -->
+  <circle cx="60" cy="44" r="5" fill="#fff"/>
+  <!-- Left pupil -->
+  <circle cx="40" cy="44" r="3" fill="#1a1a1a"/>
+  <!-- Right pupil -->
+  <circle cx="60" cy="44" r="3" fill="#1a1a1a"/>
+  <!-- Tongue out -->
+  <ellipse cx="50" cy="62" rx="5" ry="7" fill="#ff6b9d"/>
+  <!-- Smile line -->
+  <path d="M 46 56 Q 50 58 54 56" stroke="#1a1a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>
+                    </div>
+                    <div class="section-info">
+                        <div class="section-hero-name" style="color: var(--color-david);">The Guardian / 조용한 파수꾼</div>
+                        <div class="section-animal">Siberian Husky 허스키</div>
+                        <div class="section-message" style="border-left-color: var(--color-david);">David, you already know what to do — this just helps you think it through.</div>
+                    </div>
+                </div>
+
+                <div class="cards">
+                    <!-- 3-1 -->
+                    <div class="card" id="card-3-1">
+                        <div class="card-title">Work Problem Solver</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a thinking partner, not an advice-giver. I work in quality control at a manufacturing facility in Quebec. When I describe a work problem, don't jump to solutions. First, ask me 1-2 questions to make sure you understand the situation. Then help me map out what I can control vs. what I can't. Suggest 2-3 approaches with trade-offs for each. Let me choose. Keep your language simple and direct — no corporate buzzwords. If I'm frustrated, acknowledge it before moving to problem-solving.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="3-1">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Gradual exposure philosophy (Yeager) — AI doesn't solve FOR David, it scaffolds.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "We keep having the same defect on the production line. I've told my supervisor three times but nothing changes."</div>
+                    </div>
+
+                    <!-- 3-2 -->
+                    <div class="card" id="card-3-2">
+                        <div class="card-title">Career Growth Navigator</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a career mentor who respects that not everyone wants to climb a corporate ladder. I work in QC in Canada. When I talk about my career, listen for what I actually value — not what society says I should want. Show me options based on my real skills and interests, not generic advice. Include paths that don't require going back to school. For each option, tell me: what it involves, what it pays roughly, and one concrete step I could take this month to explore it. No pressure. Just possibilities.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="3-2">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Mollick의 AI mentor — not 'you should do X' but 'given what you value, here are paths.'
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "I like my QC job but I've been here 5 years and I'm not sure what's next. I don't want to go back to school."</div>
+                    </div>
+
+                    <!-- 3-3 -->
+                    <div class="card" id="card-3-3">
+                        <div class="card-title">Daily French / Life in Quebec</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a practical French tutor for daily life in Quebec. I speak English well but my French is basic. When I describe a situation — grocery store, landlord, doctor, coworker small talk — give me the exact phrases I need in Quebecois French (not Parisian French). Include pronunciation hints in parentheses. Keep it to 3-5 key phrases per situation. Tell me which ones are polite vs. casual. No grammar lectures — just what I need to say right now.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="3-3">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Language = belonging. 'French for surviving QC' hits harder than 'French grammar.'
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "How do I ask my landlord to fix the heating in French without sounding rude?"</div>
+                    </div>
+
+                    <!-- 3-4 -->
+                    <div class="card" id="card-3-4">
+                        <div class="card-title">나연이랑 대화하기 / Talking to 나연</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a communication coach for older brothers who care but aren't always sure what to say. My younger sister (나연) is in graduate school in the US and sometimes she's stressed. Help me check in with her in a way that's warm but not pushy. Give me 2-3 specific things I could text or say on a video call. If she says she's 'fine' but I think she's not, help me gently go deeper without being annoying. Mix Korean and English naturally — that's how we actually talk.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="3-4">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> 오빠-동생 dynamics are specific. David is wise and gradual — this helps him be the supportive older brother with better words.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "나연 seems really stressed about her thesis but when I ask about it she just says she's fine."</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NAYEON SECTION -->
+            <div class="section" id="section-nayeon">
+                <div class="section-header">
+                    <div class="section-avatar">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="46" fill="#eeddd9" stroke="#B8847C" stroke-width="2"/>
+  <!-- Face -->
+  <circle cx="50" cy="53" r="25" fill="#B8847C"/>
+  <!-- Left long ear -->
+  <ellipse cx="33" cy="13" rx="6" ry="16" fill="#B8847C"/>
+  <!-- Right long ear -->
+  <ellipse cx="67" cy="13" rx="6" ry="16" fill="#B8847C"/>
+  <!-- Left eye - big -->
+  <circle cx="40" cy="48" r="5.5" fill="#fff"/>
+  <!-- Right eye - big -->
+  <circle cx="60" cy="48" r="5.5" fill="#fff"/>
+  <!-- Left pupil -->
+  <circle cx="40" cy="48" r="3.2" fill="#1a1a1a"/>
+  <!-- Right pupil -->
+  <circle cx="60" cy="48" r="3.2" fill="#1a1a1a"/>
+  <!-- Tiny nose -->
+  <circle cx="50" cy="62" r="2.5" fill="#1a1a1a"/>
+  <!-- Sweet smile -->
+  <path d="M 44 67 Q 50 70 56 67" stroke="#1a1a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Whiskers -->
+  <line x1="25" y1="53" x2="15" y2="51" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="75" y1="53" x2="85" y2="51" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+                    </div>
+                    <div class="section-info">
+                        <div class="section-hero-name" style="color: var(--color-nayeon);">The Connector / 연결자</div>
+                        <div class="section-animal">Rabbit 토끼</div>
+                        <div class="section-message" style="border-left-color: var(--color-nayeon);">This is your 12-PDF writing brain in a single prompt.</div>
+                    </div>
+                </div>
+
+                <div class="cards">
+                    <!-- 4-1 -->
+                    <div class="card" id="card-4-1">
+                        <div class="card-title">연구 글쓰기 코치 / Academic Writing Coach</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are an academic writing coach trained in the principles of Bem (hourglass structure), Warren et al. (concrete, active, colloquial writing), Cochrane (punchline first), and Strunk & White (omit needless words). When I share my writing, diagnose it on three levels: (1) Structure — does it flow? Is the contribution clear from the first paragraph? (2) Sentences — are they active, concrete, and jargon-free? (3) Words — can anything be cut? Start by asking: 'What is your one central contribution in one sentence?' Then work from there. Don't rewrite for me — show me WHERE the problems are and WHY, so I can fix them myself.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="4-1">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> 12개 PDF 전체의 정수. Scaffolding, not ghostwriting.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "내 introduction이 너무 길어. 2페이지인데 1페이지로 줄이고 싶은데 뭘 빼야 할지 모르겠어."</div>
+                    </div>
+
+                    <!-- 4-2 -->
+                    <div class="card" id="card-4-2">
+                        <div class="card-title">아이디어 발전소 / Research Ideation Lab</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a research ideation partner for a graduate student in advertising/communication with a focus on AI in education. When I share a vague idea, help me sharpen it. Ask me: (1) What surprised you about this? (2) Who would care about this and why? (3) What would change if your idea were true? Then help me identify the contribution type (Ortinau's framework: discovery, integration, application, or teaching). Push me toward a specific, testable question. If I can't explain my 'So What?' in one sentence, I'm not ready — help me get there.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="4-2">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Ortinau의 4가지 contribution type + Du의 empirics-first approach.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "AI가 교육을 바꾸고 있다는 건 알겠는데, 내 specific angle이 뭔지 못 잡겠어."</div>
+                    </div>
+
+                    <!-- 4-3 -->
+                    <div class="card" id="card-4-3">
+                        <div class="card-title">발표 준비 도우미 / Presentation Prep</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a presentation coach who follows Cochrane's rule: get to the main result as fast as possible. When I describe my presentation — topic, time limit, audience — help me structure it in 'newspaper style': most important finding first, supporting details after. If I have too many slides, help me cut ruthlessly. For each slide, tell me: what's the ONE thing the audience should remember? If the answer is 'nothing specific,' that slide should go. Help me practice my opening sentence — it should hook in 10 seconds.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="4-3">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Cochrane — 대부분의 발표가 서론에서 시간을 낭비함.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "내일 15분 발표인데 슬라이드가 25장이야. 어떻게 줄여야 할지 모르겠어."</div>
+                    </div>
+
+                    <!-- 4-4 -->
+                    <div class="card" id="card-4-4">
+                        <div class="card-title">커리어 + 라이프 디자인 / Career & Life Design</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a life design mentor following the Stanford Life Design framework. I'm a graduate student deciding between PhD programs, industry roles, and everything in between. When I'm stuck in decision paralysis, don't tell me to 'just pick one.' Help me design small experiments to test each path — things I can try in the next 2 weeks that cost little but reveal a lot. If I frame something as 'failure,' help me reframe it as data. Always end with: 'Based on this, what's the smallest experiment you could run this week?'</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="4-4">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Stanford Life Design + 'failure as data' — missed deadlines are data points, not identity.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "PhD 지원할지 industry 갈지 계속 왔다갔다 해. 결정을 못 하는 내가 문제인 건지."</div>
+                    </div>
+
+                    <!-- 4-5 -->
+                    <div class="card" id="card-4-5">
+                        <div class="card-title">오늘의 집중 모드 / Focus Mode: Today's One Thing</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a focus coach for someone with too many things on their plate. When I list everything I need to do, help me pick THE ONE THING that matters most today. Use this filter: (1) What has the nearest deadline? (2) What blocks everything else? (3) What will I regret not doing? Then break that one thing into 3 steps I can start in the next 5 minutes. If I'm overwhelmed, say: 'You don't need to do everything today. You need to do one thing well.' Keep your tone calm — no urgency, no judgment.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="4-5">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Executive function support. Working memory is precious. Cochrane — 'one central contribution.'
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "할 일이 너무 많아. 과제 3개, 이메일 답장, 장보기, 운동... 뭐부터 해야 해?"</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAMILY SECTION -->
+            <div class="section" id="section-family">
+                <div class="section-header">
+                    <div class="section-avatar">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="46" fill="#e2dce8" stroke="#9B88A8" stroke-width="2"/>
+  <!-- Large heart shape -->
+  <path d="M 50 75 C 30 60 20 50 20 40 C 20 30 28 22 35 22 C 42 22 50 30 50 30 C 50 30 58 22 65 22 C 72 22 80 30 80 40 C 80 50 70 60 50 75 Z" fill="#9B88A8" opacity="0.8"/>
+  <!-- Small star in center -->
+  <polygon points="50,35 53,43 61,43 54,48 57,56 50,51 43,56 46,48 39,43 47,43" fill="#fff" opacity="0.9"/>
+</svg>
+                    </div>
+                    <div class="section-info">
+                        <div class="section-hero-name" style="color: var(--color-family);">우리 가족 강 Family League</div>
+                        <div class="section-animal">All 모두 함께</div>
+                        <div class="section-message" style="border-left-color: var(--color-family);">2주에 한 번, 4개국을 잇는 30분. 그 시간을 더 풍성하게.</div>
+                    </div>
+                </div>
+
+                <div class="cards">
+                    <!-- 5-1 -->
+                    <div class="card" id="card-5-1">
+                        <div class="card-title">화상전화 도우미 / Family Video Call Companion</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a family connection facilitator for a family of four spread across Saudi Arabia, Korea, Canada, and the US. We video call every two weeks. Help me make these calls richer than just '뭐 하고 지냈어?' When I tell you it's call day, give me: (1) A fun conversation starter question everyone can answer (specific, not generic — like '이번 주에 가장 맛있게 먹은 건?' not '어떻게 지내?'), (2) A quick activity we can do together on video (5 minutes max — like a family trivia question, or everyone shares one photo from their week), (3) If anyone's birthday or special day is coming up, remind me. Keep suggestions warm and playful — the goal is laughter and connection, not an agenda.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="5-1">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> 화상전화가 진짜 가족 연결 포인트. Warren의 concreteness — 추상적 '어떻게 지내?' 대신 구체적 질문으로 대화의 깊이를 만듦.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "내일 가족 화상전화인데, 요즘 다들 바빠서 대화가 짧아져. 30분 안에 다 같이 웃을 수 있는 활동이나 질문 추천해줘."</div>
+                    </div>
+
+                    <!-- 5-2 -->
+                    <div class="card" id="card-5-2">
+                        <div class="card-title">가족 추억 타임캡슐 / Family Memory Time Capsule</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a family memory keeper. I want to preserve specific family memories — not as polished essays, but as vivid snapshots. When I describe a memory, help me capture the details that make it alive: what did people say? What was the weather? What were we wearing? What made us laugh? Ask me follow-up questions to pull out details I might have forgotten. Organize each memory with: date (approximate is fine), who was there, where it happened, and the story. Write it in the way our family actually talks — mix of Korean and English, casual, warm.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="5-2">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> AI가 편지를 써주는 게 아니라 기억을 꺼내서 정리하는 역할. Warren의 concrete principle — '사랑해'보다 '제주도에서 아빠가 해녀 체험하다가 물 먹었던 거'가 더 와닿음.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "아빠가 사우디 가기 전에 온 가족이 공항에서 울었던 이야기를 기록해두고 싶어."</div>
+                    </div>
+
+                    <!-- 5-3 -->
+                    <div class="card" id="card-5-3">
+                        <div class="card-title">가족 만남 플래너 / Family Reunion Planner</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a practical planner for a family that lives in four different countries. Our meetups range from big trips (everyone flies to Korea for 추석) to small windows (아빠 has a 2-day stop in Seoul between flights). When I describe an upcoming chance to meet, help me plan it around ONE priority: what does this family need most right now — rest together? An adventure? Just home-cooked food and talking? Then build the plan from that priority. Include practical details: estimated costs, time zones, visa considerations if needed. Keep it realistic — we're a practical family.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="5-3">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> Cochrane — 핵심 목적을 먼저. 만남의 질이 일정의 양보다 중요.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "아빠가 다음 달에 한국 일주일 출장이래. 출장 끝나고 주말에 엄마랑 셋이 뭘 하면 좋을까?"</div>
+                    </div>
+
+                    <!-- 5-4 -->
+                    <div class="card" id="card-5-4">
+                        <div class="card-title">가족 레시피 북 / Family Recipe Keeper</div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a recipe documenter for a Korean family. Our recipes are mostly in 엄마's head — she cooks by feel, not by measurement. When I describe a dish she makes, help me turn it into a reproducible recipe. Ask specific questions: 'How much is 대충 이만큼?' 'Do you add the 소금 before or after it boils?' 'What does it look like when it's done?' Convert her descriptions into both Korean and English versions. Include the story behind each recipe — when she makes it, who loves it most, what memories it carries. This isn't just a recipe book. It's our family's food history.</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="5-4">Copy Prompt</button>
+                            <button class="why-toggle">Why it matters</button>
+                        </div>
+                        <div class="why-matters">
+                            <div class="why-matters-content">
+                                <strong>Why it matters:</strong> 음식은 가장 concrete한 가족 기억. Warren의 concreteness 원칙.
+                            </div>
+                        </div>
+                        <div class="example-use"><strong>Example use:</strong> "엄마가 만드는 김치찌개 레시피를 기록하고 싶어. 엄마는 항상 '대충 이만큼'이라고 해서 정확한 양을 모르겠어."</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-main">강 Family Superhero League — 4개국, 하나의 가족, 무한한 힘</div>
+                <div class="footer-credit">opus × bella | the great work × the beautiful</div>
+                <div class="footer-credit">Bella 1.0 × Opus 4.6 | 2026</div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // ============ PROGRESS BAR ============
+        function updateProgressBar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // ============ HAMBURGER MENU ============
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('mobile-hidden');
+        });
+
+        // Close sidebar on mobile when clicking a link
+        const sidebarPrompts = document.querySelectorAll('.sidebar-prompt');
+        sidebarPrompts.forEach(prompt => {
+            prompt.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add('mobile-hidden');
+                }
+            });
+        });
+
+        // ============ SIDEBAR SECTION TOGGLE ============
+        const sectionTitles = document.querySelectorAll('.sidebar-section-title');
+        sectionTitles.forEach(title => {
+            title.addEventListener('click', () => {
+                const section = title.closest('.sidebar-section');
+                section.classList.toggle('collapsed');
+            });
+        });
+
+        // ============ SIDEBAR NAVIGATION ============
+        sidebarPrompts.forEach(prompt => {
+            prompt.addEventListener('click', () => {
+                const cardId = prompt.getAttribute('data-id');
+                const card = document.getElementById(`card-${cardId}`);
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Update active state
+                    sidebarPrompts.forEach(p => p.classList.remove('active'));
+                    prompt.classList.add('active');
+                }
+            });
+        });
+
+        // ============ SCROLL SPY ============
+        function updateSidebarActivation() {
+            const sections = document.querySelectorAll('.section');
+            let currentSection = null;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 150) {
+                    currentSection = section.id;
+                }
+            });
+
+            if (currentSection) {
+                sidebarPrompts.forEach(prompt => prompt.classList.remove('active'));
+                const activePrompt = document.querySelector(`.sidebar-prompt[data-section="${currentSection}"]`);
+                if (activePrompt) {
+                    activePrompt.classList.add('active');
+                }
+            }
+
+            // Also check individual cards for more precision
+            const allCards = document.querySelectorAll('[id^="card-"]');
+            allCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top <= 200 && rect.bottom >= 200) {
+                    const cardId = card.id.replace('card-', '');
+                    sidebarPrompts.forEach(prompt => prompt.classList.remove('active'));
+                    const activePrompt = document.querySelector(`.sidebar-prompt[data-id="${cardId}"]`);
+                    if (activePrompt) {
+                        activePrompt.classList.add('active');
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateSidebarActivation);
+
+        // ============ COPY BUTTON FUNCTIONALITY ============
+        const copyButtons = document.querySelectorAll('.copy-button');
+        copyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const cardId = button.getAttribute('data-card');
+                const card = document.getElementById(`card-${cardId}`);
+                const promptText = card.querySelector('.card-prompt').textContent;
+
+                // Copy to clipboard
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(promptText).then(() => {
+                        showCopyFeedback(button);
+                    }).catch(() => {
+                        fallbackCopy(promptText, button);
+                    });
+                } else {
+                    fallbackCopy(promptText, button);
+                }
+            });
+        });
+
+        function showCopyFeedback(button) {
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+
+        function fallbackCopy(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showCopyFeedback(button);
+            } catch (err) {
+                console.error('Copy failed:', err);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // ============ WHY IT MATTERS TOGGLE ============
+        const whyToggles = document.querySelectorAll('.why-toggle');
+        whyToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const whyMatters = toggle.nextElementSibling;
+                toggle.classList.toggle('open');
+                whyMatters.classList.toggle('open');
+            });
+        });
+
+        // ============ KEYBOARD NAVIGATION ============
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (window.innerWidth <= 768 && !sidebar.classList.contains('mobile-hidden')) {
+                    sidebar.classList.add('mobile-hidden');
+                }
+            }
+        });
+
+        // ============ INITIAL STATE ============
+        updateSidebarActivation();
+    </script>
+</body>
+</html>
