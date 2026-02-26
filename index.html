@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%234A6FA5'/%3E%3Ctext x='16' y='22' font-size='18' text-anchor='middle' fill='white' font-family='serif'%3E강%3C/text%3E%3C/svg%3E">
 
     <style>
         * {
@@ -16,16 +17,18 @@
         }
 
         :root {
-            --bg-main: linear-gradient(135deg, #FAFAF6 0%, #F5F2EC 100%);
+            --bg-main: linear-gradient(135deg, #FAF8F4 0%, #F3EDE5 100%);
             --card-bg: rgba(255, 255, 255, 0.7);
             --card-border: 1px solid rgba(0, 0, 0, 0.06);
             --card-blur: blur(8px);
             --card-radius: 12px;
-            --color-appa: #7E9BAF;
-            --color-umma: #8FA889;
-            --color-david: #C4A872;
-            --color-nayeon: #B8847C;
-            --color-family: #9B88A8;
+            --color-appa: #4A6FA5;
+            --color-umma: #6B8F71;
+            --color-david: #C49A6C;
+            --color-nayeon: #C47A6E;
+            --color-minju: #A07DA0;
+            --color-haku: #8B9DAF;
+            --color-family: #8B6B5E;
             --font-serif-kr: 'Noto Serif KR', serif;
             --font-body: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -51,7 +54,7 @@
             background-size: 200px 200px;
             pointer-events: none;
             mix-blend-mode: multiply;
-            z-index: 1;
+            z-index: -1;
             opacity: 0.035;
         }
 
@@ -61,7 +64,7 @@
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--color-appa), var(--color-umma), var(--color-david), var(--color-nayeon), var(--color-family));
+            background: linear-gradient(90deg, var(--color-appa), var(--color-umma), var(--color-david), var(--color-nayeon), var(--color-minju), var(--color-haku), var(--color-family));
             width: 0%;
             z-index: 1001;
             transition: width 0.1s ease-out;
@@ -74,7 +77,7 @@
             left: 0;
             right: 0;
             height: 70px;
-            background: rgba(250, 250, 246, 0.95);
+            background: rgba(250, 248, 244, 0.95);
             backdrop-filter: blur(8px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.06);
             display: flex;
@@ -279,7 +282,7 @@
         .hero-members {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 16px;
             margin-bottom: 24px;
             flex-wrap: wrap;
         }
@@ -394,6 +397,50 @@
             position: relative;
         }
 
+        /* Section-specific card colors */
+        #section-appa .card {
+            background: rgba(74, 111, 165, 0.06);
+            border-left: 3px solid rgba(74, 111, 165, 0.3);
+        }
+        #section-umma .card {
+            background: rgba(107, 143, 113, 0.06);
+            border-left: 3px solid rgba(107, 143, 113, 0.3);
+        }
+        #section-david .card {
+            background: rgba(196, 154, 108, 0.06);
+            border-left: 3px solid rgba(196, 154, 108, 0.3);
+        }
+        #section-nayeon .card {
+            background: rgba(196, 122, 110, 0.06);
+            border-left: 3px solid rgba(196, 122, 110, 0.3);
+        }
+        #section-family .card {
+            background: rgba(139, 107, 94, 0.06);
+            border-left: 3px solid rgba(139, 107, 94, 0.3);
+        }
+
+        /* Section-specific prompt box tint */
+        #section-appa .card-prompt {
+            background: rgba(74, 111, 165, 0.04);
+            border-left-color: rgba(74, 111, 165, 0.25);
+        }
+        #section-umma .card-prompt {
+            background: rgba(107, 143, 113, 0.04);
+            border-left-color: rgba(107, 143, 113, 0.25);
+        }
+        #section-david .card-prompt {
+            background: rgba(196, 154, 108, 0.04);
+            border-left-color: rgba(196, 154, 108, 0.25);
+        }
+        #section-nayeon .card-prompt {
+            background: rgba(196, 122, 110, 0.04);
+            border-left-color: rgba(196, 122, 110, 0.25);
+        }
+        #section-family .card-prompt {
+            background: rgba(139, 107, 94, 0.04);
+            border-left-color: rgba(139, 107, 94, 0.25);
+        }
+
         .card-title {
             font-family: var(--font-serif-kr);
             font-size: 18px;
@@ -422,14 +469,18 @@
             color: #1a1a1a;
             white-space: pre-wrap;
             word-wrap: break-word;
-            border-left: 3px solid rgba(0, 0, 0, 0.1);
+            border-left: 3px solid currentColor;
+            border-left-color: rgba(0, 0, 0, 0.08);
         }
 
         .card-buttons {
             display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
+            align-items: center;
+            gap: 8px;
             flex-wrap: wrap;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0,0,0,0.04);
         }
 
         .copy-button {
@@ -482,21 +533,21 @@
         }
 
         .why-matters {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .why-matters.open {
-            max-height: 500px;
+            margin-bottom: 16px;
         }
 
         .why-matters-content {
             font-size: 13px;
-            color: #555;
-            line-height: 1.7;
-            padding-top: 12px;
-            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            color: #666;
+            line-height: 1.8;
+            padding: 14px 16px;
+            background: rgba(0,0,0,0.02);
+            border-radius: 8px;
+            border-left: 3px solid rgba(0,0,0,0.06);
+        }
+
+        .why-matters-content strong {
+            color: #444;
         }
 
         .example-use {
@@ -657,8 +708,541 @@
             border-radius: 4px;
         }
 
+        /* ========== WORLD CLOCK ========== */
+        .world-clock-section, .family-tree-section, .question-generator-section {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        .widget-title {
+            font-family: var(--font-serif-kr);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #3D3833;
+        }
+        .widget-subtitle {
+            font-size: 14px;
+            color: #8a8278;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        .clock-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .clock-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--card-blur);
+            border: var(--card-border);
+            border-radius: var(--card-radius);
+            padding: 20px 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 3px solid var(--accent);
+        }
+        .clock-card:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+        .clock-avatar {
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: center;
+        }
+        .clock-name {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+        .clock-location {
+            font-size: 11px;
+            color: #8a8278;
+            margin-bottom: 10px;
+        }
+        .clock-time {
+            font-family: var(--font-mono);
+            font-size: 28px;
+            font-weight: 500;
+            color: #3D3833;
+            letter-spacing: 0.02em;
+        }
+        .clock-status {
+            font-size: 11px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .clock-status.awake { background: #e8f5e9; color: #2e7d32; }
+        .clock-status.sleeping { background: #e8eaf6; color: #3949ab; }
+        .clock-status.maybe { background: #fff8e1; color: #f57f17; }
+
+        /* ========== FAMILY TREE ========== */
+        .tree-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+        .tree-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .tree-member {
+            text-align: center;
+        }
+        .tree-node {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tree-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #3D3833;
+        }
+        .tree-sub {
+            font-size: 11px;
+            color: #8a8278;
+            margin-top: 2px;
+        }
+        .tree-connector-h {
+            width: 40px;
+            height: 2px;
+            background: rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .tree-connector-h::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: #B8847C;
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+        .tree-connector-v {
+            width: 2px;
+            height: 30px;
+            background: rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+        .twin-group .tree-label { font-size: 13px; }
+
+        /* ========== WELLNESS WIDGET ========== */
+        .wellness-box {
+            background: var(--card-bg);
+            backdrop-filter: var(--card-blur);
+            border: var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .wellness-emoji {
+            font-size: 48px;
+            margin-bottom: 12px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .wellness-activity {
+            font-family: var(--font-serif-kr);
+            font-size: 20px;
+            font-weight: 400;
+            color: #3D3833;
+            line-height: 1.6;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            transition: opacity 0.4s ease;
+        }
+        .wellness-detail {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            transition: opacity 0.4s ease;
+        }
+        .wellness-timer {
+            display: none;
+            font-family: var(--font-mono);
+            font-size: 36px;
+            color: var(--color-umma);
+            margin: 16px 0;
+            font-weight: 600;
+        }
+        .wellness-timer.active {
+            display: block;
+        }
+        .wellness-btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .wellness-btn {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .wellness-btn-main {
+            background: linear-gradient(135deg, #6B8F71, #8FA889);
+            color: white;
+        }
+        .wellness-btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 143, 113, 0.3);
+        }
+        .wellness-btn-timer {
+            background: rgba(107, 143, 113, 0.1);
+            color: #6B8F71;
+            border: 1px solid rgba(107, 143, 113, 0.3);
+        }
+        .wellness-btn-timer:hover {
+            background: rgba(107, 143, 113, 0.2);
+        }
+        .wellness-category {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        /* ========== SOURCES ========== */
+        .sources-section {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        .sources-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            text-align: left;
+        }
+        .source-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--card-blur);
+            border: var(--card-border);
+            border-radius: var(--card-radius);
+            padding: 20px;
+        }
+        .source-category {
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #8B6B5E;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .source-item {
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: #5a5450;
+            margin-bottom: 8px;
+            padding-left: 10px;
+            border-left: 2px solid rgba(0,0,0,0.04);
+        }
+        .source-item em {
+            color: #3D3833;
+        }
+
+        @media (max-width: 768px) {
+            .clock-grid { grid-template-columns: repeat(2, 1fr); }
+            .tree-row { flex-wrap: wrap; }
+            .tree-connector-h { display: none; }
+            .sources-grid { grid-template-columns: 1fr; }
+        }
+
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* ========== ONBOARDING SECTION ========== */
+        .onboarding-section {
+            margin-bottom: 60px;
+        }
+        .onboarding-toggle {
+            width: 100%;
+            background: rgba(155, 136, 168, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(155, 136, 168, 0.3);
+            border-radius: 12px;
+            padding: 20px 24px;
+            font-family: var(--font-serif-kr);
+            font-size: 16px;
+            font-weight: 600;
+            color: #3D3833;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+        .onboarding-toggle:hover {
+            background: rgba(155, 136, 168, 0.15);
+            border-color: rgba(155, 136, 168, 0.5);
+        }
+        .onboarding-toggle::after {
+            content: ' ▼';
+            float: right;
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+        .onboarding-toggle.open::after {
+            transform: rotate(180deg);
+        }
+        .onboarding-content {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            padding: 32px 24px;
+            margin-top: -1px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .onboarding-content.open {
+            max-height: 800px;
+        }
+        .onboarding-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .onboarding-step {
+            display: flex;
+            gap: 20px;
+        }
+        .onboarding-step-number {
+            font-family: var(--font-serif-kr);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-family);
+            min-width: 40px;
+            text-align: center;
+        }
+        .onboarding-step-content {
+            flex: 1;
+        }
+        .onboarding-step-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #3D3833;
+            margin-bottom: 8px;
+        }
+        .onboarding-step-text {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .onboarding-step-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .onboarding-ai-button {
+            background: var(--color-family);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .onboarding-ai-button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* ========== HOW TO USE TOGGLE ========== */
+        .how-to-toggle {
+            background: transparent;
+            border: none;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            padding: 0;
+            font-family: var(--font-body);
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+        .how-to-toggle:hover {
+            color: #1a1a1a;
+        }
+        .how-to-toggle::after {
+            content: ' ▼';
+            font-size: 10px;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+        .how-to-toggle.open::after {
+            transform: rotate(180deg);
+        }
+        .how-to-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .how-to-content.open {
+            max-height: 400px;
+        }
+        .how-to-content-inner {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.7;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            white-space: pre-wrap;
+        }
+
+        /* ========== INSPIRING QUOTES ========== */
+        .section-quote {
+            font-family: var(--font-serif-kr);
+            font-size: 15px;
+            font-style: italic;
+            color: #666;
+            text-align: center;
+            padding: 20px 30px;
+            margin: -20px 0 30px 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section-quote.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section-quote::before {
+            content: '"';
+            font-size: 40px;
+            color: rgba(0,0,0,0.1);
+            position: absolute;
+            top: 0;
+            left: 10px;
+            font-family: Georgia, serif;
+        }
+        .section-quote .quote-source {
+            display: block;
+            font-size: 11px;
+            font-style: normal;
+            color: #999;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+        .mid-quote {
+            font-family: var(--font-serif-kr);
+            font-size: 14px;
+            text-align: center;
+            color: #888;
+            padding: 24px 20px;
+            margin: 20px 0;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .mid-quote.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== AI OPEN BUTTON ========== */
+        .ai-button-group {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            position: relative;
+            z-index: 10;
+        }
+        .ai-open-button {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: none;
+            position: relative;
+            z-index: 11;
+            pointer-events: auto;
+        }
+        .ai-btn-chatgpt {
+            background: #10A37F;
+            color: white;
+        }
+        .ai-btn-chatgpt:hover {
+            background: #0D8C6D;
+            transform: translateY(-1px);
+        }
+        .ai-btn-claude {
+            background: #D97757;
+            color: white;
+        }
+        .ai-btn-claude:hover {
+            background: #C4684A;
+            transform: translateY(-1px);
+        }
+
+        /* ========== WAKEUP STATUS ========== */
+        .wakeup-status {
+            text-align: center;
+            font-size: 13px;
+            color: #555;
+            margin-top: 20px;
+            padding: 12px;
+            background: rgba(232, 245, 233, 0.3);
+            border-radius: 8px;
+            border-left: 3px solid #4CAF50;
+        }
+
+        /* ========== HAKU BIRTHDAY BADGE ========== */
+        .haku-birthday-badge {
+            display: inline-block;
+            background: rgba(255, 200, 100, 0.2);
+            border: 1px solid rgba(255, 150, 100, 0.5);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 11px;
+            color: #C4A872;
+            font-weight: 600;
+            margin-left: 8px;
         }
     </style>
 </head>
@@ -687,7 +1271,7 @@
             <div class="sidebar-section expanded" data-section="appa">
                 <div class="sidebar-section-title">
                     <div class="sidebar-color-dot" style="background: var(--color-appa);"></div>
-                    <span>아빠 The Protector</span>
+                    <span>아빠 강남호 The Protector</span>
                     <span class="sidebar-toggle-icon">▼</span>
                 </div>
                 <div class="sidebar-prompts">
@@ -703,7 +1287,7 @@
             <div class="sidebar-section expanded" data-section="umma">
                 <div class="sidebar-section-title">
                     <div class="sidebar-color-dot" style="background: var(--color-umma);"></div>
-                    <span>엄마+하쿠 The Nurturer</span>
+                    <span>엄마 장옥주 + 강하쿠 The Nurturer</span>
                     <span class="sidebar-toggle-icon">▼</span>
                 </div>
                 <div class="sidebar-prompts">
@@ -719,7 +1303,7 @@
             <div class="sidebar-section expanded" data-section="david">
                 <div class="sidebar-section-title">
                     <div class="sidebar-color-dot" style="background: var(--color-david);"></div>
-                    <span>오빠 David The Guardian</span>
+                    <span>오빠 강두영 The Guardian</span>
                     <span class="sidebar-toggle-icon">▼</span>
                 </div>
                 <div class="sidebar-prompts">
@@ -727,6 +1311,7 @@
                     <div class="sidebar-prompt" data-section="david" data-id="3-2">Career Growth Navigator</div>
                     <div class="sidebar-prompt" data-section="david" data-id="3-3">Daily French</div>
                     <div class="sidebar-prompt" data-section="david" data-id="3-4">나연이랑 대화하기</div>
+                    <div class="sidebar-prompt" data-section="david" data-id="3-5">영어 자신감 코치</div>
                 </div>
             </div>
 
@@ -734,7 +1319,7 @@
             <div class="sidebar-section expanded" data-section="nayeon">
                 <div class="sidebar-section-title">
                     <div class="sidebar-color-dot" style="background: var(--color-nayeon);"></div>
-                    <span>나연 The Connector</span>
+                    <span>강나연 The Connector</span>
                     <span class="sidebar-toggle-icon">▼</span>
                 </div>
                 <div class="sidebar-prompts">
@@ -767,20 +1352,20 @@
             <!-- Hero Section -->
             <div class="hero">
                 <h1 class="hero-title">강 Family Superhero League</h1>
-                <p class="hero-subtitle">AI로 연결하는 4개국의 마음</p>
+                <p class="hero-subtitle">사우디 · 한국 · 캐나다 · 미국 — AI로 연결하는 가족의 마음</p>
 
                 <div class="hero-members">
                     <div class="hero-member">
                         <div class="hero-member-avatar">
                             <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="60" height="60">
   <!-- Background circle -->
-  <circle cx="30" cy="30" r="28" fill="#dce8ef" stroke="#7E9BAF" stroke-width="1"/>
+  <circle cx="30" cy="30" r="28" fill="#d5dff0" stroke="#4A6FA5" stroke-width="1"/>
   <!-- Face -->
-  <circle cx="30" cy="28" r="16" fill="#7E9BAF"/>
+  <circle cx="30" cy="28" r="16" fill="#4A6FA5"/>
   <!-- Left ear -->
-  <circle cx="18" cy="12" r="5" fill="#7E9BAF"/>
+  <circle cx="18" cy="12" r="5" fill="#4A6FA5"/>
   <!-- Right ear -->
-  <circle cx="42" cy="12" r="5" fill="#7E9BAF"/>
+  <circle cx="42" cy="12" r="5" fill="#4A6FA5"/>
   <!-- Left eye -->
   <circle cx="24" cy="26" r="2.5" fill="#fff"/>
   <!-- Right eye -->
@@ -801,15 +1386,15 @@
                         <div class="hero-member-avatar">
                             <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="60" height="60">
   <!-- Background circle -->
-  <circle cx="30" cy="30" r="28" fill="#e0ead9" stroke="#8FA889" stroke-width="1"/>
+  <circle cx="30" cy="30" r="28" fill="#dae5db" stroke="#6B8F71" stroke-width="1"/>
   <!-- Face -->
-  <circle cx="30" cy="30" r="16" fill="#8FA889"/>
+  <circle cx="30" cy="30" r="16" fill="#6B8F71"/>
   <!-- Left antler -->
-  <line x1="20" y1="12" x2="16" y2="5" stroke="#8FA889" stroke-width="2" stroke-linecap="round"/>
-  <line x1="16" y1="5" x2="14" y2="0" stroke="#8FA889" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="20" y1="12" x2="16" y2="5" stroke="#6B8F71" stroke-width="2" stroke-linecap="round"/>
+  <line x1="16" y1="5" x2="14" y2="0" stroke="#6B8F71" stroke-width="1.5" stroke-linecap="round"/>
   <!-- Right antler -->
-  <line x1="40" y1="12" x2="44" y2="5" stroke="#8FA889" stroke-width="2" stroke-linecap="round"/>
-  <line x1="44" y1="5" x2="46" y2="0" stroke="#8FA889" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="40" y1="12" x2="44" y2="5" stroke="#6B8F71" stroke-width="2" stroke-linecap="round"/>
+  <line x1="44" y1="5" x2="46" y2="0" stroke="#6B8F71" stroke-width="1.5" stroke-linecap="round"/>
   <!-- Left eye -->
   <circle cx="24" cy="27" r="3" fill="#fff"/>
   <!-- Right eye -->
@@ -830,13 +1415,13 @@
                         <div class="hero-member-avatar">
                             <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="60" height="60">
   <!-- Background circle -->
-  <circle cx="30" cy="30" r="28" fill="#efe5d1" stroke="#C4A872" stroke-width="1"/>
+  <circle cx="30" cy="30" r="28" fill="#f0e4d2" stroke="#C49A6C" stroke-width="1"/>
   <!-- Face -->
-  <circle cx="30" cy="28" r="16" fill="#C4A872"/>
+  <circle cx="30" cy="28" r="16" fill="#C49A6C"/>
   <!-- Left ear - pointy -->
-  <polygon points="18,12 15,0 20,8" fill="#C4A872"/>
+  <polygon points="18,12 15,0 20,8" fill="#C49A6C"/>
   <!-- Right ear - pointy -->
-  <polygon points="42,12 45,0 40,8" fill="#C4A872"/>
+  <polygon points="42,12 45,0 40,8" fill="#C49A6C"/>
   <!-- Mask pattern - dark shade around eyes -->
   <ellipse cx="24" cy="26" rx="4" ry="5" fill="rgba(0,0,0,0.2)"/>
   <ellipse cx="36" cy="26" rx="4" ry="5" fill="rgba(0,0,0,0.2)"/>
@@ -854,19 +1439,19 @@
   <path d="M 28 34 Q 30 35 32 34" stroke="#1a1a1a" stroke-width="1" fill="none" stroke-linecap="round"/>
 </svg>
                         </div>
-                        <div class="hero-member-name">David</div>
+                        <div class="hero-member-name">오빠</div>
                     </div>
                     <div class="hero-member">
                         <div class="hero-member-avatar">
                             <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="60" height="60">
   <!-- Background circle -->
-  <circle cx="30" cy="30" r="28" fill="#eeddd9" stroke="#B8847C" stroke-width="1"/>
+  <circle cx="30" cy="30" r="28" fill="#f0ddd8" stroke="#C47A6E" stroke-width="1"/>
   <!-- Face -->
-  <circle cx="30" cy="32" r="15" fill="#B8847C"/>
+  <circle cx="30" cy="32" r="15" fill="#C47A6E"/>
   <!-- Left long ear -->
-  <ellipse cx="20" cy="8" rx="4" ry="10" fill="#B8847C"/>
+  <ellipse cx="20" cy="8" rx="4" ry="10" fill="#C47A6E"/>
   <!-- Right long ear -->
-  <ellipse cx="40" cy="8" rx="4" ry="10" fill="#B8847C"/>
+  <ellipse cx="40" cy="8" rx="4" ry="10" fill="#C47A6E"/>
   <!-- Left eye - big -->
   <circle cx="24" cy="29" r="3.5" fill="#fff"/>
   <!-- Right eye - big -->
@@ -886,9 +1471,269 @@
                         </div>
                         <div class="hero-member-name">나연</div>
                     </div>
+                    <div class="hero-member">
+                        <div class="hero-member-avatar">
+                            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="60" height="60">
+<circle cx="30" cy="30" r="28" fill="#e8dce8" stroke="#A07DA0" stroke-width="1"/>
+<circle cx="30" cy="32" r="15" fill="#A07DA0"/>
+<ellipse cx="20" cy="8" rx="4" ry="10" fill="#A07DA0"/>
+<ellipse cx="40" cy="8" rx="4" ry="10" fill="#A07DA0"/>
+<circle cx="24" cy="29" r="3.5" fill="#fff"/>
+<circle cx="36" cy="29" r="3.5" fill="#fff"/>
+<circle cx="24" cy="29" r="2" fill="#1a1a1a"/>
+<circle cx="36" cy="29" r="2" fill="#1a1a1a"/>
+<circle cx="30" cy="37" r="1.5" fill="#1a1a1a"/>
+<path d="M 27 40 Q 30 42 33 40" stroke="#1a1a1a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+<line x1="15" y1="32" x2="10" y2="31" stroke="#1a1a1a" stroke-width="0.8" stroke-linecap="round"/>
+<line x1="45" y1="32" x2="50" y2="31" stroke="#1a1a1a" stroke-width="0.8" stroke-linecap="round"/>
+</svg>
+                        </div>
+                        <div class="hero-member-name">민주</div>
+                    </div>
+                    <div class="hero-member">
+                        <div class="hero-member-avatar">
+                            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="60" height="60">
+<circle cx="30" cy="30" r="28" fill="#e2e6ea" stroke="#8B9DAF" stroke-width="1"/>
+<circle cx="30" cy="32" r="16" fill="#8B9DAF"/>
+<polygon points="14,16 10,2 22,12" fill="#8B9DAF"/>
+<polygon points="46,16 50,2 38,12" fill="#8B9DAF"/>
+<polygon points="14,16 12,4 20,12" fill="rgba(255,255,255,0.3)"/>
+<polygon points="46,16 48,4 40,12" fill="rgba(255,255,255,0.3)"/>
+<circle cx="24" cy="28" r="3.5" fill="#fff"/>
+<circle cx="36" cy="28" r="3.5" fill="#fff"/>
+<circle cx="24" cy="28" r="2" fill="#1a1a1a"/>
+<circle cx="36" cy="28" r="2" fill="#1a1a1a"/>
+<polygon points="30,34 28,36 32,36" fill="#ffb6c1"/>
+<line x1="18" y1="33" x2="10" y2="31" stroke="rgba(255,255,255,0.6)" stroke-width="0.7"/>
+<line x1="18" y1="35" x2="10" y2="35" stroke="rgba(255,255,255,0.6)" stroke-width="0.7"/>
+<line x1="42" y1="33" x2="50" y2="31" stroke="rgba(255,255,255,0.6)" stroke-width="0.7"/>
+<line x1="42" y1="35" x2="50" y2="35" stroke="rgba(255,255,255,0.6)" stroke-width="0.7"/>
+<ellipse cx="30" cy="40" rx="6" ry="3" fill="rgba(255,255,255,0.3)"/>
+</svg>
+                        </div>
+                        <div class="hero-member-name">하쿠</div>
+                    </div>
                 </div>
 
-                <div class="hero-credit">opus × bella | 2026</div>
+                <div class="hero-credit" style="margin-top: 8px; font-size: 12px; color: #999; max-width: 400px; line-height: 1.5;">각 가족에게 맞는 AI 프롬프트를 모았어요.<br>복사해서 붙여넣기만 하면 됩니다.</div>
+                <div class="hero-credit" style="margin-top: 12px;">opus × bella | 2026</div>
+            </div>
+
+            <!-- ========== ONBOARDING GUIDE ========== -->
+            <div class="onboarding-section" id="onboarding">
+                <button class="onboarding-toggle" onclick="toggleOnboarding()">
+                    💡 좋은 프롬프트가 왜 중요할까?
+                </button>
+                <div class="onboarding-content" id="onboarding-content">
+                    <div class="onboarding-steps">
+                        <div class="onboarding-step">
+                            <div class="onboarding-step-number">✦</div>
+                            <div class="onboarding-step-content">
+                                <div class="onboarding-step-title">AI는 이미 우리 곁에 있어요</div>
+                                <div class="onboarding-step-text">아빠 회사 Aramco도 MetaBrain을 도입했고, 학교에서도, 직장에서도 AI는 이미 함께해요. 하지만 개인적으로 쓸 때, <strong>"어떻게 물어보느냐"</strong>가 답의 질을 완전히 바꿉니다.</div>
+                            </div>
+                        </div>
+                        <div class="onboarding-step">
+                            <div class="onboarding-step-number">✦</div>
+                            <div class="onboarding-step-content">
+                                <div class="onboarding-step-title">프롬프트 = AI에게 거는 첫 마디</div>
+                                <div class="onboarding-step-text">같은 질문도 <strong>맥락과 역할을 넣으면</strong> 완전히 다른 답이 나와요. "이메일 써줘" vs "사우디 엔지니어가 매니저에게 보내는 전문적인 이메일을 써줘" — 결과가 천지 차이!</div>
+                            </div>
+                        </div>
+                        <div class="onboarding-step">
+                            <div class="onboarding-step-number">✦</div>
+                            <div class="onboarding-step-content">
+                                <div class="onboarding-step-title">이 허브는 그래서 만들었어요</div>
+                                <div class="onboarding-step-text">각 가족에게 딱 맞는 프롬프트를 미리 만들어뒀어요. <strong>복사 → 붙여넣기 → 상황 설명</strong>만 하면 끝. 민주가 12개 논문 읽고 만든 거예요 ♡</div>
+                                <div class="onboarding-step-buttons">
+                                    <a href="https://chatgpt.com" target="_blank" class="onboarding-ai-button" style="background: #10A37F;">ChatGPT 열기</a>
+                                    <a href="https://claude.ai" target="_blank" class="onboarding-ai-button" style="background: #D97757;">Claude 열기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== WORLD CLOCK WIDGET ========== -->
+            <div class="world-clock-section" id="world-clock">
+                <h2 class="widget-title">지금 우리 가족</h2>
+                <p class="widget-subtitle">같은 순간, 다른 하늘 아래</p>
+                <div class="clock-grid">
+                    <div class="clock-card" style="--accent: var(--color-appa)">
+                        <div class="clock-avatar">
+                            <svg viewBox="0 0 40 40" width="40" height="40"><circle cx="20" cy="20" r="18" fill="#dce8ef" stroke="#7E9BAF" stroke-width="1"/><circle cx="20" cy="19" r="10" fill="#7E9BAF"/><circle cx="12" cy="9" r="3.5" fill="#7E9BAF"/><circle cx="28" cy="9" r="3.5" fill="#7E9BAF"/><circle cx="16" cy="18" r="1.5" fill="#fff"/><circle cx="24" cy="18" r="1.5" fill="#fff"/><circle cx="16" cy="18" r="0.8" fill="#1a1a1a"/><circle cx="24" cy="18" r="0.8" fill="#1a1a1a"/><path d="M 18 22 Q 20 24 22 22" stroke="#1a1a1a" stroke-width="0.8" fill="none" stroke-linecap="round"/></svg>
+                        </div>
+                        <div class="clock-info">
+                            <div class="clock-name">아빠 강남호</div>
+                            <div class="clock-location">Yanbu, Saudi Arabia</div>
+                            <div class="clock-time" id="time-yanbu">--:--</div>
+                            <div class="clock-status" id="status-yanbu"></div>
+                        </div>
+                    </div>
+                    <div class="clock-card" style="--accent: var(--color-umma)">
+                        <div class="clock-avatar">
+                            <svg viewBox="0 0 40 40" width="40" height="40"><circle cx="20" cy="20" r="18" fill="#e0ead9" stroke="#8FA889" stroke-width="1"/><circle cx="20" cy="20" r="10" fill="#8FA889"/><line x1="13" y1="8" x2="11" y2="3" stroke="#8FA889" stroke-width="1.5" stroke-linecap="round"/><line x1="27" y1="8" x2="29" y2="3" stroke="#8FA889" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="18" r="2" fill="#fff"/><circle cx="24" cy="18" r="2" fill="#fff"/><circle cx="16" cy="18" r="1" fill="#1a1a1a"/><circle cx="24" cy="18" r="1" fill="#1a1a1a"/><path d="M 18 23 Q 20 25 22 23" stroke="#1a1a1a" stroke-width="0.8" fill="none" stroke-linecap="round"/></svg>
+                        </div>
+                        <div class="clock-info">
+                            <div class="clock-name">엄마 장옥주 + 강하쿠</div>
+                            <div class="clock-location">Seoul, Korea</div>
+                            <div class="clock-time" id="time-seoul">--:--</div>
+                            <div class="clock-status" id="status-seoul"></div>
+                        </div>
+                    </div>
+                    <div class="clock-card" style="--accent: var(--color-david)">
+                        <div class="clock-avatar">
+                            <svg viewBox="0 0 40 40" width="40" height="40"><circle cx="20" cy="20" r="18" fill="#efe5d1" stroke="#C4A872" stroke-width="1"/><circle cx="20" cy="21" r="10" fill="#C4A872"/><polygon points="12,10 8,2 16,8" fill="#C4A872"/><polygon points="28,10 32,2 24,8" fill="#C4A872"/><circle cx="16" cy="19" r="1.5" fill="#fff"/><circle cx="24" cy="19" r="1.5" fill="#fff"/><circle cx="16" cy="19" r="0.8" fill="#1a1a1a"/><circle cx="24" cy="19" r="0.8" fill="#1a1a1a"/><ellipse cx="20" cy="24" rx="3" ry="2" fill="rgba(255,255,255,0.3)"/></svg>
+                        </div>
+                        <div class="clock-info">
+                            <div class="clock-name">오빠 강두영</div>
+                            <div class="clock-location">Toronto, Canada</div>
+                            <div class="clock-time" id="time-toronto">--:--</div>
+                            <div class="clock-status" id="status-toronto"></div>
+                        </div>
+                    </div>
+                    <div class="clock-card" style="--accent: var(--color-nayeon)">
+                        <div class="clock-avatar">
+                            <svg viewBox="0 0 40 40" width="40" height="40"><circle cx="20" cy="20" r="18" fill="#e5ddd6" stroke="#A89080" stroke-width="1"/><ellipse cx="20" cy="22" rx="11" ry="10" fill="#9E9E9E"/><ellipse cx="20" cy="16" rx="6.5" ry="5" fill="#ffffff"/><polygon points="12,10 10,3 15,9" fill="#9E9E9E"/><polygon points="28,10 30,3 25,9" fill="#9E9E9E"/><circle cx="16" cy="20" r="2" fill="#ffffff"/><circle cx="24" cy="20" r="2" fill="#ffffff"/><circle cx="16" cy="20" r="1" fill="#1a1a1a"/><circle cx="24" cy="20" r="1" fill="#1a1a1a"/><polygon points="20,24 19,26 21,26" fill="#1a1a1a"/><line x1="12" y1="22" x2="7" y2="21" stroke="#1a1a1a" stroke-width="0.5" stroke-linecap="round"/><line x1="28" y1="22" x2="33" y2="21" stroke="#1a1a1a" stroke-width="0.5" stroke-linecap="round"/></svg>
+                        </div>
+                        <div class="clock-info">
+                            <div class="clock-name">쌍둥이 강나연 + 강민주</div>
+                            <div class="clock-location">Austin, Texas</div>
+                            <div class="clock-time" id="time-austin">--:--</div>
+                            <div class="clock-status" id="status-austin"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wakeup-status" id="wakeup-status-line">로딩중...</div>
+            </div>
+
+            <!-- ========== GOOGLE MEET ========== -->
+            <div class="card" style="background: linear-gradient(135deg, rgba(66, 133, 244, 0.08), rgba(52, 168, 83, 0.08)); border: 1px solid rgba(66, 133, 244, 0.15); margin-bottom: 40px; text-align: center; padding: 30px;">
+                <div style="font-family: var(--font-serif-kr); font-size: 20px; font-weight: 600; margin-bottom: 8px;">📞 이번 주 화상전화</div>
+                <div style="font-size: 14px; color: #555; margin-bottom: 16px;">2주에 한번, 우리 가족 구글미트</div>
+                <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <div style="background: rgba(255,255,255,0.7); padding: 10px 16px; border-radius: 10px; font-size: 13px;">
+                        <div style="font-weight: 600; color: #4A6FA5;">🇸🇦 Yanbu</div>
+                        <div>토 새벽 4시</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.7); padding: 10px 16px; border-radius: 10px; font-size: 13px;">
+                        <div style="font-weight: 600; color: #6B8F71;">🇰🇷 Seoul</div>
+                        <div>일 오전 10시</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.7); padding: 10px 16px; border-radius: 10px; font-size: 13px;">
+                        <div style="font-weight: 600; color: #C49A6C;">🇨🇦 Toronto</div>
+                        <div>토 저녁 8시</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.7); padding: 10px 16px; border-radius: 10px; font-size: 13px;">
+                        <div style="font-weight: 600; color: #C47A6E;">🇺🇸 Austin</div>
+                        <div style="font-weight: 700; color: #C47A6E;">토 저녁 7시 ✓</div>
+                    </div>
+                </div>
+                <div style="font-size: 12px; color: #888; margin-bottom: 16px;">💡 추천: 텍사스 토요일 저녁 7시 (서울 일요일 오전이라 모두 OK!)</div>
+                <a href="https://meet.google.com/hit-dyus-vsv" target="_blank" style="display: inline-block; padding: 12px 28px; background: #4285F4; color: white; border-radius: 24px; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.2s ease;">
+                    🎥 구글미트 입장하기
+                </a>
+                <div style="font-size: 11px; color: #aaa; margin-top: 10px;">meet.google.com/hit-dyus-vsv</div>
+            </div>
+
+            <!-- ========== FAMILY TREE (Steve Jobs redesign) ========== -->
+            <div class="family-tree-section" id="family-tree">
+                <h2 class="widget-title" style="margin-bottom: 4px;">강 Family</h2>
+                <p class="widget-subtitle" style="font-style: italic;">네 개의 시간대, 하나의 뿌리</p>
+
+                <div style="max-width: 700px; margin: 30px auto 0; position: relative;">
+                    <!-- Parents Row -->
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 8px;">
+                        <!-- 아빠 -->
+                        <div style="text-align: center;">
+                            <div style="width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, rgba(74,111,165,0.15), rgba(74,111,165,0.05)); border: 2px solid rgba(74,111,165,0.3); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">
+                                <span style="font-size: 32px;">🐻</span>
+                            </div>
+                            <div style="font-weight: 700; font-size: 14px; color: #4A6FA5;">강남호</div>
+                            <div style="font-size: 11px; color: #999; margin-top: 2px;">아빠 · 수호자</div>
+                            <div style="font-size: 10px; color: #bbb; margin-top: 2px;">🇸🇦 Yanbu</div>
+                        </div>
+                        <!-- Heart connector -->
+                        <div style="font-size: 18px; color: rgba(196,122,110,0.4); margin-top: -30px;">♥</div>
+                        <!-- 엄마 -->
+                        <div style="text-align: center;">
+                            <div style="width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, rgba(107,143,113,0.15), rgba(107,143,113,0.05)); border: 2px solid rgba(107,143,113,0.3); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">
+                                <span style="font-size: 32px;">🦌</span>
+                            </div>
+                            <div style="font-weight: 700; font-size: 14px; color: #6B8F71;">장옥주</div>
+                            <div style="font-size: 11px; color: #999; margin-top: 2px;">엄마 · 돌봄의 여왕</div>
+                            <div style="font-size: 10px; color: #bbb; margin-top: 2px;">🇰🇷 Seoul</div>
+                        </div>
+                    </div>
+
+                    <!-- Vertical connector -->
+                    <div style="width: 1px; height: 24px; background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.04)); margin: 0 auto;"></div>
+
+                    <!-- Children Row -->
+                    <div style="display: flex; justify-content: center; align-items: flex-start; gap: 24px; flex-wrap: wrap;">
+                        <!-- 오빠 -->
+                        <div style="text-align: center; min-width: 90px;">
+                            <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, rgba(196,154,108,0.15), rgba(196,154,108,0.05)); border: 2px solid rgba(196,154,108,0.3); margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">
+                                <span style="font-size: 28px;">🐺</span>
+                            </div>
+                            <div style="font-weight: 700; font-size: 13px; color: #C49A6C;">강두영</div>
+                            <div style="font-size: 10px; color: #999;">오빠 · 파수꾼</div>
+                            <div style="font-size: 10px; color: #bbb;">🇨🇦 Toronto</div>
+                        </div>
+                        <!-- 나연 -->
+                        <div style="text-align: center; min-width: 90px;">
+                            <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, rgba(196,122,110,0.15), rgba(196,122,110,0.05)); border: 2px solid rgba(196,122,110,0.3); margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">
+                                <span style="font-size: 28px;">🐰</span>
+                            </div>
+                            <div style="font-weight: 700; font-size: 13px; color: #C47A6E;">강나연</div>
+                            <div style="font-size: 10px; color: #999;">연결자</div>
+                            <div style="font-size: 10px; color: #bbb;">🇺🇸 Austin</div>
+                        </div>
+                        <!-- 민주 -->
+                        <div style="text-align: center; min-width: 90px;">
+                            <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, rgba(160,125,160,0.15), rgba(160,125,160,0.05)); border: 2px solid rgba(160,125,160,0.3); margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">
+                                <span style="font-size: 28px;">🐰</span>
+                            </div>
+                            <div style="font-weight: 700; font-size: 13px; color: #A07DA0;">강민주</div>
+                            <div style="font-size: 10px; color: #999;">연결자 · 쌍둥이</div>
+                            <div style="font-size: 10px; color: #bbb;">🇺🇸 Austin</div>
+                        </div>
+                        <!-- 하쿠 -->
+                        <div style="text-align: center; min-width: 90px;">
+                            <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, rgba(139,157,175,0.15), rgba(139,157,175,0.05)); border: 2px solid rgba(139,157,175,0.3); margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'">
+                                <span style="font-size: 28px;">🐱</span>
+                            </div>
+                            <div style="font-weight: 700; font-size: 13px; color: #8B9DAF;">강하쿠</div>
+                            <div style="font-size: 10px; color: #999;">Agent Purr · 6살</div>
+                            <div style="font-size: 10px; color: #bbb;">🇰🇷 Seoul</div>
+                        </div>
+                    </div>
+
+                    <!-- Distance message -->
+                    <div style="text-align: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.04);">
+                        <div style="font-family: var(--font-serif-kr); font-size: 13px; color: #aaa; font-style: italic;">
+                            12,000km의 거리, 0초의 마음
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== WELLNESS MICRO-ACTIVITY ========== -->
+            <div class="question-generator-section" id="wellness-widget">
+                <h2 class="widget-title">오늘의 작은 행복</h2>
+                <p class="widget-subtitle">클릭 한 번으로 삶의 질이 올라가는 2분</p>
+                <div class="wellness-box">
+                    <div class="wellness-emoji" id="wellness-emoji">🌿</div>
+                    <div class="wellness-category" id="wellness-cat" style="background: rgba(107,143,113,0.1); color: #6B8F71;">시작해볼까요?</div>
+                    <div class="wellness-activity" id="wellness-activity">버튼을 눌러보세요!</div>
+                    <div class="wellness-detail" id="wellness-detail">가족 모두를 위한 건강한 미니 습관</div>
+                    <div class="wellness-timer" id="wellness-timer">0:00</div>
+                    <div class="wellness-btn-group">
+                        <button class="wellness-btn wellness-btn-main" onclick="nextWellness()">다음 액티비티</button>
+                        <button class="wellness-btn wellness-btn-timer" id="timer-btn" onclick="startTimer()" style="display:none;">⏱ 타이머 시작</button>
+                    </div>
+                </div>
             </div>
 
             <!-- APPA SECTION -->
@@ -919,96 +1764,179 @@
 </svg>
                     </div>
                     <div class="section-info">
-                        <div class="section-hero-name" style="color: var(--color-appa);">The Protector / 수호자</div>
+                        <div class="section-hero-name" style="color: var(--color-appa);">아빠 강남호 - The Protector / 수호자</div>
                         <div class="section-animal">Bear 곰</div>
+                        <div class="section-subtitle" style="font-size: 12px; color: #666; margin-top: 8px;">강남호</div>
                         <div class="section-message" style="border-left-color: var(--color-appa);">아빠, 이메일 쓸 때 이거 써봐. 막내딸이 만들었어 ♡</div>
                     </div>
                 </div>
+
+                <div class="section-quote" data-quote>세상에서 제일 먼 곳에서 일하면서도 제일 가까운 사람. 그게 우리 아빠야.<span class="quote-source">— 막내딸이 아빠에게</span></div>
 
                 <div class="cards">
                     <!-- 1-1 -->
                     <div class="card" id="card-1-1">
                         <div class="card-title">업무 이메일 도우미 / Work Email Assistant</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 매니저에게 프로젝트 지연을 보고할 때, 거래처에 정중하게 요청할 때, 팀원에게 피드백을 줄 때. 전문 엔지니어의 지식을 명확한 영어로 전달하도록 도와줘요.<br><strong>When to use:</strong> Reporting delays to your manager, making requests to vendors, giving feedback to teammates. Turns your engineering expertise into clear professional English.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a professional communication coach for a senior petroleum engineer working in Saudi Arabia. I will give you the context of an email I need to write — the situation, who I'm writing to, and what I want to say. Help me draft the email in clear, professional English. Use active voice, concrete language, and keep sentences short. Avoid jargon unless the recipient is technical. If the tone needs to be diplomatic, show me how to soften without being vague. Always suggest a clear subject line.</div>
+                        <div class="example-use"><strong>Example:</strong> "I need to tell my manager the project will be delayed by two weeks because the valve supplier didn't deliver on time. I want to sound professional but not blame anyone."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="1-1">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> 아빠는 석유공학 엔지니어로 사우디에서 영어로 일함. Warren et al.의 "curse of knowledge" — 전문가일수록 비전문가에게 설명하기 어려운 현상을 직접 해결.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "I need to tell my manager the project will be delayed by two weeks because the valve supplier didn't deliver on time. I want to sound professional but not blame anyone."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"내일 매니저에게 프로젝트 2주 지연을 보고해야 해. 밸브 공급업체 문제인데 나를 탓하게 쓰고 싶지 않아."
+"거래처에 미팅 일정을 바꿔달라고 요청하는 이메일 써줘. 정중하게."
+
+🔑 더 좋은 답을 받는 키워드:
+• "tone을 더 diplomatic하게" — 더 외교적인 표현으로 바꿔줌
+• "shorter version" — 긴 이메일을 짧게 줄여줌
+• "subject line 3개 추천해줘" — 제목 선택지를 줌
+• "한국어로 먼저 설명해줘" — 영어 이메일이지만 한국어로 해설
+
+💡 Tip: 이메일의 목적을 한 문장으로 먼저 말해주세요. "I want to [목적] without [피하고 싶은 것]" 형식이 가장 정확한 결과를 줍니다.</div>
+                        </div>
                     </div>
 
                     <!-- 1-2 -->
                     <div class="card" id="card-1-2">
                         <div class="card-title">기술 보고서 다듬기 / Technical Report Polisher</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 분기 안전 보고서를 VP에게 제출할 때, 기술 보고서의 첫 2페이지를 비전문가도 이해하게 만들 때. 전문 용어를 누구나 이해할 수 있게 바꿔줘요.<br><strong>When to use:</strong> Before submitting quarterly safety reports, making technical documents readable for executives who aren't engineers.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a technical writing editor for engineering reports. I'll paste a section of my report. Rewrite it for two audiences: (1) executives who need the key takeaway in the first paragraph, and (2) engineers who need the details. Use concrete numbers instead of vague qualifiers. Replace passive voice with active voice. If I used jargon, add a brief parenthetical explanation. Keep the original meaning but make it clearer. Format with scannable headings.</div>
+                        <div class="example-use"><strong>Example:</strong> "Here's my quarterly safety report. The VP will read pages 1-2. Make those pages clear to someone who doesn't know what a pressure relief valve does."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="1-2">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Cochrane의 핵심 — readers are busy and impatient. 경영진은 Executive Summary만 읽음.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "Here's my quarterly safety report. The VP will read pages 1-2. Make those pages clear to someone who doesn't know what a pressure relief valve does."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"여기 내 분기 안전 보고서 1페이지야. VP가 읽을 건데 pressure relief valve가 뭔지 모르는 사람도 이해하게 써줘."
+"이 문단에서 passive voice를 active voice로 바꿔줘."
+
+🔑 더 좋은 답을 받는 키워드:
+• "executive summary 버전으로" — 임원용 요약본 생성
+• "숫자를 더 concrete하게" — 'significantly' 같은 모호한 표현을 수치로
+• "jargon에 괄호 설명 추가해줘" — 전문용어 옆에 쉬운 설명
+• "before/after 비교해줘" — 수정 전후를 나란히 보여줌
+
+💡 Tip: 보고서 텍스트를 통째로 붙여넣으세요. AI가 어떤 부분을 고쳤는지 표시해줍니다.</div>
+                        </div>
                     </div>
 
                     <!-- 1-3 -->
                     <div class="card" id="card-1-3">
                         <div class="card-title">스트레스 해소 대화 / After-Work Decompression</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 퇴근 후 하루의 스트레스를 풀고 싶을 때, 중동 생활의 외로움이 느껴질 때, 가족에게 말하기 어려운 고민이 있을 때. AI가 판단 없이 들어줘요.<br><strong>When to use:</strong> After a long day when you need to decompress, when homesickness hits, when you need someone to listen without judgment.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a warm, grounded conversation partner. I'm an engineer living alone in Saudi Arabia, far from my family in Korea. When I share something that happened at work or in life, first acknowledge what I'm feeling — don't jump to solutions. Then help me see the situation from a different angle. If I'm stressed, help me reframe the stress as a signal, not an enemy. End with one small, concrete thing I can do in the next 10 minutes. Talk to me like a caring friend, not a therapist.</div>
+                        <div class="example-use"><strong>Example:</strong> "오늘 회의에서 내 제안이 무시당한 것 같아. 화가 나는데 내가 너무 예민한 건지 모르겠어."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="1-3">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Crum의 stress mindset reappraisal — 스트레스를 적이 아닌 신호로 재해석.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "오늘 회의에서 내 제안이 무시당한 것 같아. 화가 나는데 내가 너무 예민한 건지 모르겠어."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"오늘 현장에서 일이 좀 많았어. 그냥 좀 이야기하고 싶어."
+"요즘 가족이 보고 싶은데, 말하기가 좀 그래."
+
+🔑 더 좋은 답을 받는 키워드:
+• "조언 말고 그냥 들어줘" — AI가 해결책 대신 공감 모드로
+• "한국어로 대화하자" — 편한 언어로 전환
+• "구체적으로 뭐가 힘들었냐면..." — 상황을 구체적으로 풀수록 답이 좋아짐
+• "오늘은 여기까지" — 대화를 자연스럽게 마무리
+
+💡 Tip: AI에게 완벽한 문장으로 말할 필요 없어요. "짜증나" "피곤해" 한마디로 시작해도 됩니다. AI가 알아서 물어봐요.</div>
+                        </div>
                     </div>
 
                     <!-- 1-4 -->
                     <div class="card" id="card-1-4">
                         <div class="card-title">건강 관리 코치 / Health & Wellness Check-in</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 사우디 더위에서 건강 관리법이 궁금할 때, 운동 루틴을 만들고 싶을 때, 건강검진 결과가 이해 안 될 때. 50대 남성 건강에 맞춤 조언.<br><strong>When to use:</strong> Managing health in Saudi heat, building an exercise routine, understanding health check results. Tailored for men in their 50s working abroad.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a practical health advisor for a man in his 50s working long desk hours in a hot climate (Saudi Arabia). I'll describe my current situation — how my body feels, my schedule, what I've been eating. Give me 1-2 specific, time-boxed actions I can take today. No gym required. Think: desk stretches (describe the exact movement), hydration reminders, sleep adjustments. Explain WHY each action helps in one sentence. Frame health as maintenance, not punishment — my body is an engine that runs better with care.</div>
+                        <div class="example-use"><strong>Example:</strong> "I've been sitting at my desk for 10 hours a day and my back is killing me. I don't have time for a gym."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="1-4">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Crum의 mindset-physiology — 건강 행동은 '해야 하는 것'이 아니라 '내 몸이 더 잘 작동하게 만드는 것.'
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "I've been sitting at my desk for 10 hours a day and my back is killing me. I don't have time for a gym."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"요즘 50도 넘는 더위에서 일하는데, 물을 얼마나 마셔야 해?"
+"건강검진에서 콜레스테롤이 높다고 나왔어. 뭘 바꿔야 할까?"
+
+🔑 더 좋은 답을 받는 키워드:
+• "사우디 날씨 고려해서" — 지역 환경에 맞춘 조언
+• "실내에서 할 수 있는 것으로" — 더울 때 실내 운동
+• "영어로 의사한테 설명하려면?" — 증상 영어 표현
+• "1주일 플랜으로 만들어줘" — 실천 가능한 계획표
+
+💡 Tip: 증상이나 검진 결과를 말할 때 숫자를 포함하면 훨씬 정확한 답을 받아요. (예: "혈압 140/90")</div>
+                        </div>
                     </div>
 
                     <!-- 1-5 -->
                     <div class="card" id="card-1-5">
                         <div class="card-title">새로운 기술 배우기 / Learn Something New Today</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> Aramco의 새 시스템이나 기술 트렌드를 빠르게 파악할 때, MetaBrain 같은 AI 도구를 개인적으로 활용하고 싶을 때. 경험 많은 엔지니어의 관점에서 설명해줘요.<br><strong>When to use:</strong> When new technology or tools appear at work, when you want to understand AI trends from an engineer's perspective.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a patient teacher who explains complex topics to curious professionals. I'm an experienced petroleum engineer who wants to learn about new technologies and trends. When I ask about something, start with a real-world example I can relate to from engineering. Then explain the concept in plain language — no buzzwords. If there's jargon, define it in parentheses. End with: 'Want me to go deeper, or is that enough for now?' Respect my expertise while bridging me to new territory.</div>
+                        <div class="example-use"><strong>Example:</strong> "I keep hearing about AI in oil and gas. Explain it to me like I'm an engineer who's been doing this for 30 years and hasn't had time to look into it."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="1-5">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Mollick의 AI tutor 역할 + Dweck/Yeager의 growth mindset — '아직 모르는 것'이지 '못하는 것'이 아님.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "I keep hearing about AI in oil and gas. Explain it to me like I'm an engineer who's been doing this for 30 years and hasn't had time to look into it."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"회사에서 디지털 트윈 기술을 도입한다는데, 쉽게 설명해줘."
+"ChatGPT를 업무에서 어떻게 활용할 수 있는지 실제 예시로 알려줘."
+
+🔑 더 좋은 답을 받는 키워드:
+• "30년 경력 엔지니어 눈높이로" — 초보 취급 말고 전문가 수준으로
+• "Aramco에서 쓸 수 있는 예시로" — 석유산업 맥락에 맞게
+• "5분 안에 이해할 수 있게" — 핵심만 빠르게
+• "한국어로 핵심 정리해줘" — 영어 기술 문서의 한국어 요약
+
+💡 Tip: "이걸 왜 알아야 해?" 라고 물어보세요. AI가 당신의 업무와 연결해서 설명해줍니다.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1044,95 +1972,179 @@
                     </div>
                     <div class="section-info">
                         <div class="section-hero-name" style="color: var(--color-umma);">The Nurturer + Agent Purr / 돌봄의 여왕</div>
-                        <div class="section-animal">Deer 사슴 + Cat 고양이</div>
+                        <div class="section-animal">Deer 사슴 + Cat 고양이<span class="haku-birthday-badge">로딩중...</span></div>
                         <div class="section-message" style="border-left-color: var(--color-umma);">엄마, 수업 준비할 때 이거 써봐. 영어 표현도 같이 배울 수 있어!</div>
                     </div>
                 </div>
+
+                <div class="section-quote" data-quote>가르치는 사람이 먼저 배우는 사람이다.<span class="quote-source">— 세네카 (Seneca)</span></div>
 
                 <div class="cards">
                     <!-- 2-1 -->
                     <div class="card" id="card-2-1">
                         <div class="card-title">수업 준비 도우미 / Lesson Plan Helper</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 내일 수업 준비할 때, 새로운 활동 아이디어가 필요할 때, 학생들이 지루해하는 주제를 재미있게 가르치고 싶을 때. 초등학교 선생님을 위한 맞춤 도우미.<br><strong>When to use:</strong> Preparing tomorrow's lesson, needing fresh activity ideas, making boring topics fun for elementary students.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a creative teaching assistant for an experienced Korean elementary school teacher. I'll tell you the subject, grade level, and topic. Design a lesson plan with hands-on activities students can touch, see, and do. Include: learning objectives (2-3), a 5-minute hook activity, the main lesson flow (40 minutes), and one assessment idea. Present everything in both Korean and English so I can learn teaching vocabulary in English. Be practical — use materials available in a typical Korean elementary school.</div>
+                        <div class="example-use"><strong>Example:</strong> "3학년 과학 시간에 '식물의 한살이'를 가르쳐야 해. 아이들이 직접 만져보고 관찰할 수 있는 활동이 있으면 좋겠어."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="2-1">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Mollick의 AI teammate 역할. 엄마의 교육 경험 + AI의 자료 접근성 = hybrid intelligence.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "3학년 과학 시간에 '식물의 한살이'를 가르쳐야 해. 아이들이 직접 만져보고 관찰할 수 있는 활동이 있으면 좋겠어."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"내일 3학년 과학 수업인데, '물의 순환'을 재미있게 가르칠 활동이 필요해."
+"아이들이 집중 못하는 월요일 1교시에 쓸 수 있는 5분 웜업 활동 추천해줘."
+
+🔑 더 좋은 답을 받는 키워드:
+• "준비물 없이 할 수 있는" — 간단한 활동 요청
+• "30명 기준으로" — 학급 인원수에 맞게
+• "시간표로 만들어줘" — 40분 수업 시간 배분
+• "학습지로 만들어줘" — 프린트할 수 있는 형태로
+
+💡 Tip: 학년과 과목을 꼭 말해주세요. "3학년 과학" vs "과학 수업"은 AI의 답이 완전히 달라요.</div>
+                        </div>
                     </div>
 
                     <!-- 2-2 -->
                     <div class="card" id="card-2-2">
                         <div class="card-title">학부모 소통 도우미 / Parent Communication Helper</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 학부모에게 민감한 소식을 전할 때 (아이의 행동, 성적), 학부모 면담 준비할 때, 따뜻하지만 전문적인 말투가 필요할 때.<br><strong>When to use:</strong> Communicating sensitive news to parents, preparing for parent conferences, finding the right tone between warm and professional.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a communication specialist for Korean elementary school teachers. I need to write a message to parents — it could be a 가정통신문, a consultation note, or an event announcement. I'll describe the situation and what I need to communicate. Write it in warm, clear Korean that any parent can understand without education jargon. Also provide an English version below it so I can practice professional English. Format it so parents can scan it quickly — the most important information first, details after.</div>
+                        <div class="example-use"><strong>Example:</strong> "다음 주 현장체험학습 안내문을 써야 해. 준비물이 많은데 학부모들이 헷갈리지 않게."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="2-2">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Warren et al.의 'curse of knowledge' — 교사는 교육 전문가라 학부모에게 무의식적으로 전문용어를 씀.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "다음 주 현장체험학습 안내문을 써야 해. 준비물이 많은데 학부모들이 헷갈리지 않게."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"한 학생이 수업 중 자꾸 다른 아이를 때려. 학부모에게 어떻게 알려야 할지 모르겠어."
+"성적이 떨어진 학생 부모님께 면담 요청 문자를 보내야 해."
+
+🔑 더 좋은 답을 받는 키워드:
+• "부모님 기분 상하지 않게" — 부드럽지만 정확한 표현
+• "문자 형식으로" — 카카오톡 메시지 길이로
+• "면담 대본으로" — 말할 순서와 표현을 정리
+• "아이의 장점을 먼저 언급하고" — 긍정-개선-긍정 샌드위치
+
+💡 Tip: "이 상황에서 부모님이 가장 걱정하는 게 뭘까?"라고 AI에게 먼저 물어보세요. 상대 관점을 이해하면 훨씬 좋은 메시지가 나와요.</div>
+                        </div>
                     </div>
 
                     <!-- 2-3 -->
                     <div class="card" id="card-2-3">
                         <div class="card-title">하쿠 건강 일기 / Haku Health & Happiness Journal</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 하쿠가 밥을 안 먹을 때, 평소와 다른 행동을 할 때, 병원에 데려가야 하는지 고민될 때. "정상적인 고양이 행동"과 "걱정해야 할 신호"를 구분해줘요.<br><strong>When to use:</strong> When Haku isn't eating, acts differently than usual, or when you're wondering if a vet visit is needed.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a knowledgeable cat care advisor. I have a Scottish Straight/Persian mix cat named 하쿠 (Haku), born February 20, 2020 — he's a neutered male with long gray-and-white fur and a slightly flat face. When I describe his behavior, eating, or symptoms, help me understand what might be going on. Distinguish between 'normal cat things' and 'worth watching.' If something needs a vet visit, say so clearly. Also teach me the English words for his symptoms so I can look them up or describe them to an English-speaking vet. Always ask: 'Is this different from his usual behavior?'</div>
+                        <div class="example-use"><strong>Example:</strong> "하쿠가 이틀째 밥을 조금만 먹어. 평소에는 잘 먹는 애인데. 토하지는 않았고 물은 마셔."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="2-3">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> 고양이는 아플 때 숨김. 관찰 데이터를 의미 있는 패턴으로 변환.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "하쿠가 이틀째 밥을 조금만 먹어. 평소에는 잘 먹는 애인데. 토하지는 않았고 물은 마셔."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"하쿠가 이틀째 밥을 조금만 먹어. 평소에는 잘 먹는 애인데. 토하지는 않았고 물은 마셔."
+"하쿠가 요즘 화장실을 자주 가. 소변 색이 평소보다 진한 것 같아."
+
+🔑 더 좋은 답을 받는 키워드:
+• "평소랑 다른 점은..." — 변화를 구체적으로 설명
+• "병원 가야 해?" — 긴급도를 판단해줌
+• "영어로 뭐라고 하지?" — 증상의 영어 표현 (수의사용)
+• "사진 찍어서 뭘 봐야 해?" — 관찰 포인트
+
+💡 Tip: "며칠째", "평소에는 어땠는데"를 꼭 함께 말해주세요. 고양이는 갑자기 안 먹는 것 vs 서서히 줄어든 것이 의미가 완전히 달라요.</div>
+                        </div>
                     </div>
+
+                    <div class="mid-quote" data-quote>고양이는 말하지 않아도 다 알아. 하쿠도 그래. 🐱</div>
 
                     <!-- 2-4 -->
                     <div class="card" id="card-2-4">
                         <div class="card-title">영어 공부 파트너 / English Learning Partner</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 일상 대화를 영어로 연습하고 싶을 때, 수업이나 하쿠 이야기를 영어로 해보고 싶을 때. 틀려도 부드럽게 고쳐주는 친절한 선생님이에요.<br><strong>When to use:</strong> Practicing everyday English conversation, talking about school or Haku in English. A patient teacher who corrects gently.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a gentle, encouraging English tutor for a Korean elementary school teacher. I want to practice English through conversation about my daily life — school, cooking, 하쿠, and everyday situations. When I make mistakes, correct them kindly: show me what I said, what's more natural, and explain WHY in one sentence (in Korean if needed). Celebrate what I get right. Keep the conversation going naturally — don't turn it into a grammar lesson. If I switch to Korean mid-sentence, that's okay — help me find the English words I was looking for.</div>
+                        <div class="example-use"><strong>Example:</strong> "오늘 학교에서 있었던 일을 영어로 말해보고 싶어. 고쳐주되, 내가 틀린 부분을 왜 그런지 쉽게 설명해줘."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="2-4">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Falk의 self-relevance — '영어를 배워야 한다'보다 '아이들에게 영어 동화를 읽어줄 수 있다'가 더 동기부여됨.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "오늘 학교에서 있었던 일을 영어로 말해보고 싶어. 고쳐주되, 내가 틀린 부분을 왜 그런지 쉽게 설명해줘."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"오늘 수업에서 있었던 일을 영어로 말해볼게. Today my student..."
+"하쿠가 오늘 귀여운 짓을 했는데 영어로 말해보고 싶어."
+
+🔑 더 좋은 답을 받는 키워드:
+• "더 자연스러운 표현은?" — 문법은 맞지만 어색한 표현 교정
+• "왜 이렇게 말해?" — 한국어와 다른 이유를 설명
+• "비슷한 표현 3개 더" — 같은 의미의 다양한 표현
+• "발음이 어려워" — 발음 팁까지 알려줌
+
+💡 Tip: 완벽한 문장으로 시작 안 해도 돼요! "오늘... student가... 뭐라고 하지... fight?" 이렇게 섞어서 말해도 AI가 자연스러운 영어로 바꿔주고, 왜 그렇게 바꿨는지 설명해줘요.</div>
+                        </div>
                     </div>
 
                     <!-- 2-5 -->
                     <div class="card" id="card-2-5">
                         <div class="card-title">나를 위한 시간 / Self-Care for 선생님</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 하루 종일 남을 돌보고 나서 지칠 때, 짧은 시간이라도 나만의 휴식이 필요할 때. 5분, 15분, 30분 단위로 할 수 있는 것을 하나만 알려줘요. 쉬는 건 게으른 게 아니에요.<br><strong>When to use:</strong> When you're exhausted from taking care of everyone else, when you need just ONE thing you can do for yourself right now.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a self-care companion for a hardworking elementary school teacher in Korea who takes care of everyone else first. When I say I'm tired or stressed, don't give me a long list. Give me ONE thing I can do right now — with a specific time (5 minutes, 15 minutes, 30 minutes). It could be a breathing exercise, a simple stretch, a cup of tea ritual, or something I can do with my cat 하쿠. Explain it in simple steps. Remind me that rest is not laziness — it's how I recharge to keep taking care of others.</div>
+                        <div class="example-use"><strong>Example:</strong> "오늘 너무 지쳤어. 30분 안에 할 수 있는 뭔가가 필요해. 하쿠랑 같이 할 수 있으면 더 좋고."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="2-5">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> 교사는 돌봄 노동자. Crum의 stress reappraisal — rest as recharging, not weakness.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "오늘 너무 지쳤어. 30분 안에 할 수 있는 뭔가가 필요해. 하쿠랑 같이 할 수 있으면 더 좋고."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"오늘 너무 지쳤어. 30분 안에 할 수 있는 뭔가가 필요해."
+"하쿠랑 같이 할 수 있는 편안한 활동 추천해줘."
+
+🔑 더 좋은 답을 받는 키워드:
+• "지금 당장 할 수 있는 것" — 준비물 없이 바로
+• "하쿠랑 같이" — 고양이와 함께하는 힐링
+• "5분 / 15분 / 30분" — 시간을 정해서 요청
+• "몸이 뻣뻣해" vs "머리가 복잡해" — 몸 or 마음 중 뭐가 힘든지
+
+💡 Tip: "지쳤어"만으로도 충분해요. AI가 "몸이 피곤한 건지, 마음이 피곤한 건지" 물어봐서 맞춤 추천을 해줍니다.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1170,77 +2182,178 @@
                     <div class="section-info">
                         <div class="section-hero-name" style="color: var(--color-david);">The Guardian / 조용한 파수꾼</div>
                         <div class="section-animal">Siberian Husky 허스키</div>
-                        <div class="section-message" style="border-left-color: var(--color-david);">David, you already know what to do — this just helps you think it through.</div>
+                        <div class="section-message" style="border-left-color: var(--color-david);">오빠, 네가 이미 답을 알고 있어 — 이건 그걸 정리해주는 거야.</div>
                     </div>
                 </div>
+
+                <div class="section-quote" data-quote>The quietest people have the loudest minds.<span class="quote-source">— Stephen Hawking</span></div>
 
                 <div class="cards">
                     <!-- 3-1 -->
                     <div class="card" id="card-3-1">
                         <div class="card-title">Work Problem Solver</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>When to use:</strong> When the same problem keeps recurring, when you're unsure how to escalate an issue. <strong>이런 때 쓰세요:</strong> 같은 문제가 반복되는데 해결이 안 될 때, 상사에게 문제를 어떻게 보고할지 고민될 때. A thinking partner, not an advice-giver.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a thinking partner, not an advice-giver. I work in quality control at a manufacturing facility in Quebec. When I describe a work problem, don't jump to solutions. First, ask me 1-2 questions to make sure you understand the situation. Then help me map out what I can control vs. what I can't. Suggest 2-3 approaches with trade-offs for each. Let me choose. Keep your language simple and direct — no corporate buzzwords. If I'm frustrated, acknowledge it before moving to problem-solving.</div>
+                        <div class="example-use"><strong>Example:</strong> "We keep having the same defect on the production line. I've told my supervisor three times but nothing changes."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="3-1">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Gradual exposure philosophy (Yeager) — AI doesn't solve FOR David, it scaffolds.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">How to use?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "We keep having the same defect on the production line. I've told my supervisor three times but nothing changes."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 After pasting the prompt, start with:
+
+"The same defect keeps showing up on Line 3. I've reported it twice but nothing changes."
+"My supervisor asked me to train the new guy but I'm already behind on my own work."
+
+🔑 Keywords for better responses:
+• "what can I control here?" — separates actionable from unchangeable
+• "help me map this out" — visual/structured breakdown
+• "how do I bring this up without sounding negative?" — communication angle
+• "한국어로 정리해줘" — get a Korean summary to think it through
+
+💡 Tip: Describe the FEELING too, not just the facts. "This is frustrating because..." gives AI context to respond with empathy first, solutions second.</div>
+                        </div>
                     </div>
 
                     <!-- 3-2 -->
                     <div class="card" id="card-3-2">
                         <div class="card-title">Career Growth Navigator</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>When to use:</strong> When you're not sure what's next, when you want growth options that don't require going back to school. <strong>이런 때 쓰세요:</strong> "다음 단계"가 뭔지 모를 때, 학교를 다시 다니지 않고도 성장할 수 있는 방법이 궁금할 때. Finding YOUR path, not what society says you should do.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a career mentor who respects that not everyone wants to climb a corporate ladder. I work in QC in Canada. When I talk about my career, listen for what I actually value — not what society says I should want. Show me options based on my real skills and interests, not generic advice. Include paths that don't require going back to school. For each option, tell me: what it involves, what it pays roughly, and one concrete step I could take this month to explore it. No pressure. Just possibilities.</div>
+                        <div class="example-use"><strong>Example:</strong> "I like my QC job but I've been here 5 years and I'm not sure what's next. I don't want to go back to school."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="3-2">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Mollick의 AI mentor — not 'you should do X' but 'given what you value, here are paths.'
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">How to use?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "I like my QC job but I've been here 5 years and I'm not sure what's next. I don't want to go back to school."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 After pasting the prompt, start with:
+
+"I've been in QC for 5 years. I like it but I feel stuck. What options do I have?"
+"I'm interested in supply chain but I don't want to go back to school."
+
+🔑 Keywords for better responses:
+• "what would this actually look like day-to-day?" — reality check
+• "what's one step I could take THIS month?" — immediate action
+• "what skills do I already have for this?" — builds on strengths
+• "no corporate ladder stuff" — keeps it real
+
+💡 Tip: Tell the AI what you DON'T want, not just what you want. "I don't want more stress" or "I don't want to relocate" narrows to options that actually fit your life.</div>
+                        </div>
                     </div>
+
+                    <div class="mid-quote" data-quote>Growth is quiet. It happens when no one is watching.</div>
 
                     <!-- 3-3 -->
                     <div class="card" id="card-3-3">
                         <div class="card-title">Daily French / Life in Quebec</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>When to use:</strong> Requesting repairs from your landlord, describing symptoms at the doctor, casual small talk with coworkers. Real Quebecois French, not Parisian. <strong>이런 때 쓰세요:</strong> 집주인에게 수리 요청할 때, 병원에서 증상을 설명할 때, 동료와 가볍게 대화할 때. 파리 프랑스어가 아니라 진짜 퀘벡 프랑스어를 알려줘요.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a practical French tutor for daily life in Quebec. I speak English well but my French is basic. When I describe a situation — grocery store, landlord, doctor, coworker small talk — give me the exact phrases I need in Quebecois French (not Parisian French). Include pronunciation hints in parentheses. Keep it to 3-5 key phrases per situation. Tell me which ones are polite vs. casual. No grammar lectures — just what I need to say right now.</div>
+                        <div class="example-use"><strong>Example:</strong> "How do I ask my landlord to fix the heating in French without sounding rude?"</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="3-3">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Language = belonging. 'French for surviving QC' hits harder than 'French grammar.'
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">How to use?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "How do I ask my landlord to fix the heating in French without sounding rude?"</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 After pasting the prompt, start with:
+
+"How do I ask my landlord to fix the heating without sounding rude?"
+"I need to make small talk with coworkers at lunch. What do people say?"
+
+🔑 Keywords for better responses:
+• "Quebecois, not Parisian" — gets real local French
+• "pronunciation in parentheses" — how to actually say it
+• "polite vs casual version" — know when to use which
+• "if they respond with ___, what do I say?" — next-turn practice
+
+💡 Tip: Describe the PLACE, not just the topic. "At the pharmacy counter" or "in the break room" gives AI the social context to match the right formality level.</div>
+                        </div>
                     </div>
 
                     <!-- 3-4 -->
                     <div class="card" id="card-3-4">
                         <div class="card-title">나연이랑 대화하기 / Talking to 나연</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>When to use:</strong> When 나연 says she's "fine" but you sense she's not, when you want to check in but aren't sure what to say. <strong>이런 때 쓰세요:</strong> 나연이가 "괜찮아"라고 하는데 표정이 안 좋을 때, 오랜만에 연락하고 싶은데 뭐라고 시작할지 모를 때. Warm but not pushy older brother advice.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a communication coach for older brothers who care but aren't always sure what to say. My younger sister (나연) is in graduate school in the US and sometimes she's stressed. Help me check in with her in a way that's warm but not pushy. Give me 2-3 specific things I could text or say on a video call. If she says she's 'fine' but I think she's not, help me gently go deeper without being annoying. Mix Korean and English naturally — that's how we actually talk.</div>
+                        <div class="example-use"><strong>Example:</strong> "나연 seems really stressed about her thesis but when I ask about it she just says she's fine."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="3-4">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> 오빠-동생 dynamics are specific. David is wise and gradual — this helps him be the supportive older brother with better words.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">How to use?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "나연 seems really stressed about her thesis but when I ask about it she just says she's fine."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 After pasting the prompt, start with:
+
+"나연 said she's 'fine' on our last call but she seemed off. What can I text her?"
+"I want to check in with my sister but I don't want to sound like I'm interrogating her."
+
+🔑 Keywords for better responses:
+• "casual, not heavy" — keeps it light and natural
+• "in Korean-English mix" — how siblings actually talk
+• "what if she deflects?" — follow-up strategies
+• "something funny first" — humor as an opening
+
+💡 Tip: Share what YOU'RE going through first. "나 요즘 이런 일 있었는데..." opens the door without putting pressure on her to share.</div>
+                        </div>
+                    </div>
+
+                    <!-- 3-5 (NEW) -->
+                    <div class="card" id="card-3-5">
+                        <div class="card-title">영어 자신감 코치 / English Confidence Coach</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>When to use:</strong> When you hesitate to speak up in meetings, when you're unsure if your email sounds natural. Finding YOUR English voice, not perfect English. <strong>이런 때 쓰세요:</strong> 회의에서 영어로 의견을 말해야 하는데 망설여질 때, 이메일을 쓸 때 "이게 자연스러운 표현인가?" 고민될 때. 완벽한 영어가 아니라 '나다운 영어'를 찾아줘요.</div>
+                        </div>
+                        <div class="card-prompt-label">Prompt</div>
+                        <div class="card-prompt">You are a calm, encouraging English coach for someone who speaks Korean natively and uses English at work in Canada. I understand English well, but I sometimes hesitate — not because I don't know the words, but because I want to say it perfectly. Help me see that making mistakes is how language actually improves. When I describe a work situation where I need to speak or write in English, don't just give me the right words — first, normalize the struggle. Remind me: "The fact that you're doing complex technical work in your second language is already impressive." Then give me 2-3 natural phrases I could use. Show me the Korean thought pattern I'm translating from and the more natural English version. Keep it practical. No grammar lectures. Just help me sound like myself — in English.</div>
+                        <div class="example-use"><strong>Example:</strong> "내일 미팅에서 내 의견을 말해야 하는데, 한국어로는 '이 방법이 더 효율적일 것 같습니다'인데 영어로 자연스럽게 말하는 법을 모르겠어."</div>
+                        <div class="card-buttons">
+                            <button class="copy-button" data-card="3-5">Copy Prompt</button>
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
+                            </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">How to use?▼</button>
+                        </div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 After pasting the prompt, start with:
+
+"내일 미팅에서 '이 방법이 더 효율적일 것 같습니다'를 영어로 자연스럽게 말하고 싶어."
+"I wrote this email but I'm not sure if it sounds natural: [paste email]"
+
+🔑 Keywords for better responses:
+• "한국어 사고방식이랑 비교해줘" — shows the translation pattern
+• "more confident version" — same meaning, stronger delivery
+• "3 ways to say this" — options to choose from
+• "is this Konglish?" — checks for Korean-influenced awkwardness
+
+💡 Tip: 한국어로 먼저 말하고 "이걸 자연스러운 영어로 바꿔줘"가 가장 좋은 방법이에요. 영어로 생각하려고 애쓰지 마세요 — 한국어 생각을 영어 옷으로 갈아입히는 거예요.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1282,90 +2395,173 @@
                     </div>
                 </div>
 
+                <div class="section-quote" data-quote>연구는 혼자 하는 게 아니라, 세상과 대화하는 거야.<span class="quote-source">— 쌍둥이의 약속</span></div>
+
                 <div class="cards">
                     <!-- 4-1 -->
                     <div class="card" id="card-4-1">
                         <div class="card-title">연구 글쓰기 코치 / Academic Writing Coach</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 논문의 introduction이 너무 길어질 때, "So what?"에 답하기 어려울 때, abstract를 3번째 고쳐쓰고 있을 때. 12개 논문의 글쓰기 원칙을 한 프롬프트에 담았어.<br><strong>When to use:</strong> When your introduction keeps growing, when you can't articulate the "So What?", when you're on your 3rd abstract rewrite.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are an academic writing coach trained in the principles of Bem (hourglass structure), Warren et al. (concrete, active, colloquial writing), Cochrane (punchline first), and Strunk & White (omit needless words). When I share my writing, diagnose it on three levels: (1) Structure — does it flow? Is the contribution clear from the first paragraph? (2) Sentences — are they active, concrete, and jargon-free? (3) Words — can anything be cut? Start by asking: 'What is your one central contribution in one sentence?' Then work from there. Don't rewrite for me — show me WHERE the problems are and WHY, so I can fix them myself.</div>
+                        <div class="example-use"><strong>Example:</strong> "내 introduction이 너무 길어. 2페이지인데 1페이지로 줄이고 싶은데 뭘 빼야 할지 모르겠어."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="4-1">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> 12개 PDF 전체의 정수. Scaffolding, not ghostwriting.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">사용법▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "내 introduction이 너무 길어. 2페이지인데 1페이지로 줄이고 싶은데 뭘 빼야 할지 모르겠어."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"내 introduction 초안이야. So what이 명확한지 봐줘: [텍스트 붙여넣기]"
+"이 abstract를 Cochrane의 newspaper style로 다시 써줘."
+
+🔑 더 좋은 답을 받는 키워드:
+• "So what? 테스트 해줘" — contribution이 한 문장으로 되는지
+• "hourglass structure로" — Bem의 구조 적용
+• "passive voice 찾아서 active로" — Warren의 3대 적
+• "concrete하게 바꿔줘" — 추상적 표현을 구체적으로
+• "내 목소리 유지하면서" — AI가 덮어쓰지 않게
+
+💡 Tip: 텍스트를 붙여넣고 "이 문단의 가장 큰 문제 하나만 말해줘"로 시작하세요. 한번에 다 고치려 하면 압도됩니다.</div>
+                        </div>
                     </div>
 
                     <!-- 4-2 -->
                     <div class="card" id="card-4-2">
                         <div class="card-title">아이디어 발전소 / Research Ideation Lab</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 연구 아이디어가 떠올랐는데 어디서부터 시작할지 모를 때, 지도교수에게 proposal을 가져가기 전에 아이디어를 정리하고 싶을 때.<br><strong>When to use:</strong> When you have a research spark but don't know where to start, when you want to pressure-test an idea before your advisor meeting.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a research ideation partner for a graduate student in advertising/communication with a focus on AI in education. When I share a vague idea, help me sharpen it. Ask me: (1) What surprised you about this? (2) Who would care about this and why? (3) What would change if your idea were true? Then help me identify the contribution type (Ortinau's framework: discovery, integration, application, or teaching). Push me toward a specific, testable question. If I can't explain my 'So What?' in one sentence, I'm not ready — help me get there.</div>
+                        <div class="example-use"><strong>Example:</strong> "AI가 교육을 바꾸고 있다는 건 알겠는데, 내 specific angle이 뭔지 못 잡겠어."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="4-2">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Ortinau의 4가지 contribution type + Du의 empirics-first approach.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">사용법▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "AI가 교육을 바꾸고 있다는 건 알겠는데, 내 specific angle이 뭔지 못 잡겠어."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"AI가 학생들의 writing 능력에 미치는 영향을 연구하고 싶어. 어디서부터 시작하지?"
+"이 아이디어가 Ortinau의 4가지 contribution 중 어디에 해당하는지 분석해줘."
+
+🔑 더 좋은 답을 받는 키워드:
+• "testable proposition으로 만들어줘" — 검증 가능한 형태로
+• "rival hypothesis는?" — 대안 설명 확인
+• "기존 문헌과 차별점은?" — gap identification
+• "내 지도교수가 물어볼 첫 질문은?" — 약점 미리 파악
+
+💡 Tip: 완성된 아이디어가 아니어도 돼요. "이런 현상이 흥미로운데..." 로 시작하면 AI가 질문으로 아이디어를 발전시켜줍니다.</div>
+                        </div>
                     </div>
 
                     <!-- 4-3 -->
                     <div class="card" id="card-4-3">
                         <div class="card-title">발표 준비 도우미 / Presentation Prep</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 학회 발표 준비할 때, 논문 defense 연습할 때, 청중 앞에서 자신감이 필요할 때. 발표의 구조와 전달 모두 도와줘요.<br><strong>When to use:</strong> Preparing conference presentations, practicing defenses, building confidence for public speaking.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a presentation coach who follows Cochrane's rule: get to the main result as fast as possible. When I describe my presentation — topic, time limit, audience — help me structure it in 'newspaper style': most important finding first, supporting details after. If I have too many slides, help me cut ruthlessly. For each slide, tell me: what's the ONE thing the audience should remember? If the answer is 'nothing specific,' that slide should go. Help me practice my opening sentence — it should hook in 10 seconds.</div>
+                        <div class="example-use"><strong>Example:</strong> "내일 15분 발표인데 슬라이드가 25장이야. 어떻게 줄여야 할지 모르겠어."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="4-3">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Cochrane — 대부분의 발표가 서론에서 시간을 낭비함.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">사용법▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "내일 15분 발표인데 슬라이드가 25장이야. 어떻게 줄여야 할지 모르겠어."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"15분 학회 발표인데, 슬라이드 구조 잡아줘. 주제는 [연구 주제]."
+"이 슬라이드의 핵심 메시지가 뭔지 한 문장으로 테스트해줘."
+
+🔑 더 좋은 답을 받는 키워드:
+• "청중이 기억할 한 문장은?" — takeaway message 정리
+• "Q&A에서 나올 질문 예측해줘" — 대비 연습
+• "이 부분 더 간결하게" — 슬라이드 텍스트 줄이기
+• "연습할 스크립트 써줘" — 발표 대본 초안
+
+💡 Tip: "나는 [주제]를 [청중]에게 [시간]분 안에 발표해야 해" — 이 세 가지 정보만 주면 AI가 최적의 구조를 제안해요.</div>
+                        </div>
                     </div>
 
                     <!-- 4-4 -->
                     <div class="card" id="card-4-4">
                         <div class="card-title">커리어 + 라이프 디자인 / Career & Life Design</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> PhD 이후의 삶이 막막할 때, 학업과 삶의 균형이 흔들릴 때, "이게 맞는 길인가?" 할 때. Stanford Life Design 모델 기반.<br><strong>When to use:</strong> When post-PhD life feels unclear, when work-life balance wavers, when you wonder "Am I on the right path?"</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a life design mentor following the Stanford Life Design framework. I'm a graduate student deciding between PhD programs, industry roles, and everything in between. When I'm stuck in decision paralysis, don't tell me to 'just pick one.' Help me design small experiments to test each path — things I can try in the next 2 weeks that cost little but reveal a lot. If I frame something as 'failure,' help me reframe it as data. Always end with: 'Based on this, what's the smallest experiment you could run this week?'</div>
+                        <div class="example-use"><strong>Example:</strong> "PhD 지원할지 industry 갈지 계속 왔다갔다 해. 결정을 못 하는 내가 문제인 건지."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="4-4">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Stanford Life Design + 'failure as data' — missed deadlines are data points, not identity.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">사용법▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "PhD 지원할지 industry 갈지 계속 왔다갔다 해. 결정을 못 하는 내가 문제인 건지."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"PhD 이후에 academia vs industry 중 고민 중인데, 나한테 뭐가 맞을까?"
+"요즘 논문도 써야 하고, 건강도 챙겨야 하고, 다 하려니 지쳐."
+
+🔑 더 좋은 답을 받는 키워드:
+• "Odyssey plan 만들어줘" — 3가지 인생 시나리오
+• "에너지 audit 해보자" — 에너지를 주는 것 vs 빼는 것
+• "5년 후에 후회할 것은?" — 역방향 사고
+• "지금 당장 바꿀 수 있는 한 가지?" — 즉시 실행 가능
+
+💡 Tip: "정답이 뭐야?"보다 "선택지를 보여줘"가 더 좋은 답을 받아요. AI는 정답을 모르지만, 당신이 정답을 찾을 수 있게 구조를 만들어줍니다.</div>
+                        </div>
                     </div>
 
                     <!-- 4-5 -->
                     <div class="card" id="card-4-5">
                         <div class="card-title">오늘의 집중 모드 / Focus Mode: Today's One Thing</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 할 일이 10개인데 뭐부터 할지 모를 때, 논문 쓰다가 SNS에 빠져들 때, 오늘 하루 딱 한 가지만 끝내고 싶을 때. 작업 기억 과부하를 줄여줘요.<br><strong>When to use:</strong> When you have 10 tasks and don't know where to start, when you need to focus on just ONE thing today.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a focus coach for someone with too many things on their plate. When I list everything I need to do, help me pick THE ONE THING that matters most today. Use this filter: (1) What has the nearest deadline? (2) What blocks everything else? (3) What will I regret not doing? Then break that one thing into 3 steps I can start in the next 5 minutes. If I'm overwhelmed, say: 'You don't need to do everything today. You need to do one thing well.' Keep your tone calm — no urgency, no judgment.</div>
+                        <div class="example-use"><strong>Example:</strong> "할 일이 너무 많아. 과제 3개, 이메일 답장, 장보기, 운동... 뭐부터 해야 해?"</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="4-5">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Executive function support. Working memory is precious. Cochrane — 'one central contribution.'
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">사용법▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "할 일이 너무 많아. 과제 3개, 이메일 답장, 장보기, 운동... 뭐부터 해야 해?"</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"오늘 할 일: 논문 revision, 수업 과제, 이메일 5개, GIGC 워크숍 준비. 뭐부터?"
+"3시간밖에 없는데 논문 한 섹션을 끝내고 싶어."
+
+🔑 더 좋은 답을 받는 키워드:
+• "가장 중요한 한 가지만" — 우선순위 결정
+• "25분 단위로 쪼개줘" — 포모도로 형식
+• "에너지 낮을 때 할 일 vs 높을 때 할 일" — 에너지 매칭
+• "done list 만들어줘" — 끝낸 것 목록으로 성취감
+
+💡 Tip: 할 일을 다 나열하고 "이 중에서 오늘 안 하면 내일 문제 되는 것은?"이라고 물으면 AI가 진짜 긴급한 것을 골라줍니다.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1376,9 +2572,9 @@
                     <div class="section-avatar">
                         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
   <!-- Background circle -->
-  <circle cx="50" cy="50" r="46" fill="#e2dce8" stroke="#9B88A8" stroke-width="2"/>
+  <circle cx="50" cy="50" r="46" fill="#e2dce8" stroke="#8B6B5E" stroke-width="2"/>
   <!-- Large heart shape -->
-  <path d="M 50 75 C 30 60 20 50 20 40 C 20 30 28 22 35 22 C 42 22 50 30 50 30 C 50 30 58 22 65 22 C 72 22 80 30 80 40 C 80 50 70 60 50 75 Z" fill="#9B88A8" opacity="0.8"/>
+  <path d="M 50 75 C 30 60 20 50 20 40 C 20 30 28 22 35 22 C 42 22 50 30 50 30 C 50 30 58 22 65 22 C 72 22 80 30 80 40 C 80 50 70 60 50 75 Z" fill="#8B6B5E" opacity="0.8"/>
   <!-- Small star in center -->
   <polygon points="50,35 53,43 61,43 54,48 57,56 50,51 43,56 46,48 39,43 47,43" fill="#fff" opacity="0.9"/>
 </svg>
@@ -1390,82 +2586,192 @@
                     </div>
                 </div>
 
+                <div class="section-quote" data-quote>가족은 우연히 만나는 게 아니라, 서로를 선택하는 거다.<span class="quote-source">— 강 Family League</span></div>
+
                 <div class="cards">
                     <!-- 5-1 -->
                     <div class="card" id="card-5-1">
                         <div class="card-title">화상전화 도우미 / Family Video Call Companion</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 2주에 한 번 가족 화상전화 전에 재미있는 주제를 준비하고 싶을 때, 30분을 알차게 보내고 싶을 때. 모두가 참여할 수 있는 대화 주제를 만들어줘요.<br><strong>When to use:</strong> Before the biweekly family video call, when you want to make the most of 30 minutes across 4 time zones.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a family connection facilitator for a family of four spread across Saudi Arabia, Korea, Canada, and the US. We video call every two weeks. Help me make these calls richer than just '뭐 하고 지냈어?' When I tell you it's call day, give me: (1) A fun conversation starter question everyone can answer (specific, not generic — like '이번 주에 가장 맛있게 먹은 건?' not '어떻게 지내?'), (2) A quick activity we can do together on video (5 minutes max — like a family trivia question, or everyone shares one photo from their week), (3) If anyone's birthday or special day is coming up, remind me. Keep suggestions warm and playful — the goal is laughter and connection, not an agenda.</div>
+                        <div class="example-use"><strong>Example:</strong> "내일 가족 화상전화인데, 요즘 다들 바빠서 대화가 짧아져. 30분 안에 다 같이 웃을 수 있는 활동이나 질문 추천해줘."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="5-1">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> 화상전화가 진짜 가족 연결 포인트. Warren의 concreteness — 추상적 '어떻게 지내?' 대신 구체적 질문으로 대화의 깊이를 만듦.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "내일 가족 화상전화인데, 요즘 다들 바빠서 대화가 짧아져. 30분 안에 다 같이 웃을 수 있는 활동이나 질문 추천해줘."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"이번 주 토요일 가족 화상전화인데, 30분 동안 할 재미있는 활동 추천해줘."
+"아빠가 요즘 무슨 일 있는 것 같은데, 자연스럽게 물어볼 수 있는 질문 만들어줘."
+
+🔑 더 좋은 답을 받는 키워드:
+• "모두가 참여할 수 있는" — 5명 전원 포함
+• "웃기는 것으로" — 가벼운 분위기
+• "사진 보면서 할 수 있는" — 시각 활동 포함
+• "5분이면 되는 간단한 게임" — 짧고 재미있게
+
+💡 Tip: "지난번에는 [이런 이야기]를 했어"라고 알려주면 AI가 이어서 더 깊은 대화 주제를 만들어줘요.</div>
+                        </div>
                     </div>
 
                     <!-- 5-2 -->
                     <div class="card" id="card-5-2">
                         <div class="card-title">가족 추억 타임캡슐 / Family Memory Time Capsule</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 가족 추억을 기록하고 싶을 때, 명절이나 가족 모임 후 기억을 정리할 때. 시간이 지나면 여행보다 밥상이, 선물보다 대화가 기억나니까.<br><strong>When to use:</strong> When you want to capture family memories before they fade, after holidays or reunions.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a family memory keeper. I want to preserve specific family memories — not as polished essays, but as vivid snapshots. When I describe a memory, help me capture the details that make it alive: what did people say? What was the weather? What were we wearing? What made us laugh? Ask me follow-up questions to pull out details I might have forgotten. Organize each memory with: date (approximate is fine), who was there, where it happened, and the story. Write it in the way our family actually talks — mix of Korean and English, casual, warm.</div>
+                        <div class="example-use"><strong>Example:</strong> "아빠가 사우디 가기 전에 온 가족이 공항에서 울었던 이야기를 기록해두고 싶어."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="5-2">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> AI가 편지를 써주는 게 아니라 기억을 꺼내서 정리하는 역할. Warren의 concrete principle — '사랑해'보다 '제주도에서 아빠가 해녀 체험하다가 물 먹었던 거'가 더 와닿음.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "아빠가 사우디 가기 전에 온 가족이 공항에서 울었던 이야기를 기록해두고 싶어."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"추석에 온 가족이 5년 만에 모였어. 이 기억을 기록하고 싶어."
+"엄마가 해준 김치찌개 맛을 글로 남기고 싶어."
+
+🔑 더 좋은 답을 받는 키워드:
+• "감각을 살려서" — 맛, 냄새, 소리, 촉감
+• "대화를 그대로 넣어서" — 실제 대화 재현
+• "10년 후에 읽어도" — 미래의 가족을 위한 글
+• "아이들 시점에서" — 어릴 때의 관점으로
+
+💡 Tip: 완벽한 글이 아니어도 돼요. 기억나는 장면 하나만 — "엄마가 부엌에서 뭐 하고 있었고, 아빠가 뭐라고 했고" — 이것만으로 AI가 아름다운 기록으로 만들어줘요.</div>
+                        </div>
                     </div>
+
+                    <div class="mid-quote" data-quote>시간이 지나면 선물보다 대화가, 여행보다 밥상이 기억나.</div>
 
                     <!-- 5-3 -->
                     <div class="card" id="card-5-3">
                         <div class="card-title">가족 만남 플래너 / Family Reunion Planner</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 추석이나 명절에 다 같이 모일 계획을 세울 때, 아빠가 출장 중 경유지에서 짧게 만날 수 있을 때. 4개국 시간표·비자·비용을 한번에 고려해줘요.<br><strong>When to use:</strong> Planning family reunions for holidays, when 아빠 has a layover in Seoul, coordinating 4 countries at once.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a practical planner for a family that lives in four different countries. Our meetups range from big trips (everyone flies to Korea for 추석) to small windows (아빠 has a 2-day stop in Seoul between flights). When I describe an upcoming chance to meet, help me plan it around ONE priority: what does this family need most right now — rest together? An adventure? Just home-cooked food and talking? Then build the plan from that priority. Include practical details: estimated costs, time zones, visa considerations if needed. Keep it realistic — we're a practical family.</div>
+                        <div class="example-use"><strong>Example:</strong> "아빠가 다음 달에 한국 일주일 출장이래. 출장 끝나고 주말에 엄마랑 셋이 뭘 하면 좋을까?"</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="5-3">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> Cochrane — 핵심 목적을 먼저. 만남의 질이 일정의 양보다 중요.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "아빠가 다음 달에 한국 일주일 출장이래. 출장 끝나고 주말에 엄마랑 셋이 뭘 하면 좋을까?"</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"추석에 서울에서 일주일 만나기로 했어. 비행기값 + 숙소 + 일정 잡아줘."
+"아빠가 서울 경유 2일인데, 짧게라도 만나고 싶어. 어떻게 하면 좋을까?"
+
+🔑 더 좋은 답을 받는 키워드:
+• "예산 [금액]으로" — 현실적인 계획
+• "시간표로 만들어줘" — 시각적 정리
+• "비자 필요한 사람은?" — 국적별 확인
+• "비행편 가격대 알려줘" — 예산 감 잡기
+
+💡 Tip: 4개국 가족이니까 "누가 어디로 가는 게 가장 효율적인지"부터 물어보세요. AI가 비행 경로와 비용을 고려해서 최적 장소를 제안해줘요.</div>
+                        </div>
                     </div>
 
                     <!-- 5-4 -->
                     <div class="card" id="card-5-4">
                         <div class="card-title">가족 레시피 북 / Family Recipe Keeper</div>
+                        <div class="why-matters">
+                            <div class="why-matters-content"><strong>이런 때 쓰세요:</strong> 엄마의 "대충 이만큼" 레시피를 정확한 양으로 기록하고 싶을 때, 가족 요리를 사진+레시피로 보존하고 싶을 때. 가장 concrete한 가족 기억은 음식이니까.<br><strong>When to use:</strong> When you want to record 엄마's "roughly this much" recipes with exact measurements, when you want to preserve family food memories.</div>
+                        </div>
                         <div class="card-prompt-label">Prompt</div>
                         <div class="card-prompt">You are a recipe documenter for a Korean family. Our recipes are mostly in 엄마's head — she cooks by feel, not by measurement. When I describe a dish she makes, help me turn it into a reproducible recipe. Ask specific questions: 'How much is 대충 이만큼?' 'Do you add the 소금 before or after it boils?' 'What does it look like when it's done?' Convert her descriptions into both Korean and English versions. Include the story behind each recipe — when she makes it, who loves it most, what memories it carries. This isn't just a recipe book. It's our family's food history.</div>
+                        <div class="example-use"><strong>Example:</strong> "엄마가 만드는 김치찌개 레시피를 기록하고 싶어. 엄마는 항상 '대충 이만큼'이라고 해서 정확한 양을 모르겠어."</div>
                         <div class="card-buttons">
                             <button class="copy-button" data-card="5-4">Copy Prompt</button>
-                            <button class="why-toggle">Why it matters</button>
-                        </div>
-                        <div class="why-matters">
-                            <div class="why-matters-content">
-                                <strong>Why it matters:</strong> 음식은 가장 concrete한 가족 기억. Warren의 concreteness 원칙.
+                            <div class="ai-button-group">
+                                <a href="https://chatgpt.com" target="_blank" class="ai-open-button ai-btn-chatgpt">ChatGPT</a>
+                                <a href="https://claude.ai" target="_blank" class="ai-open-button ai-btn-claude">Claude</a>
                             </div>
+                            <button class="how-to-toggle" onclick="toggleHowTo(this)">어떻게 쓰나요?▼</button>
                         </div>
-                        <div class="example-use"><strong>Example use:</strong> "엄마가 만드는 김치찌개 레시피를 기록하고 싶어. 엄마는 항상 '대충 이만큼'이라고 해서 정확한 양을 모르겠어."</div>
+                        <div class="how-to-content">
+                            <div class="how-to-content-inner">💬 프롬프트를 붙여넣은 후 이렇게 시작하세요:
+
+"엄마가 만드는 김치찌개 레시피를 기록하고 싶어. 엄마는 항상 '대충 이만큼'이라고 해."
+"할머니의 떡국 레시피를 아는 만큼만이라도 적어두고 싶어."
+
+🔑 더 좋은 답을 받는 키워드:
+• "대충 이만큼 → 정확한 양으로" — 계량 변환
+• "엄마의 말투 살려서" — 레시피에 감성 추가
+• "영어 버전도 만들어줘" — 외국 거주 가족용
+• "사진 설명도 넣을 자리" — 비주얼 레시피
+
+💡 Tip: 엄마에게 전화해서 요리하면서 녹음하세요. 그 대화를 AI에게 주면 "대충"을 "정확한 양"으로 바꿔서 레시피를 만들어줘요!</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Footer -->
+            <!-- ========== SOURCES / CREDIBILITY ========== -->
+            <div class="sources-section" id="sources">
+                <h2 class="widget-title">Sources & Scholarly Foundation</h2>
+                <p class="widget-subtitle">이 프롬프트 허브를 만드는 데 사용된 학술 자료들</p>
+                <div class="sources-grid">
+                    <div class="source-card">
+                        <div class="source-category">Writing Craft — Dr. Du's Seminar</div>
+                        <div class="source-item">Bem, D. J. (2003). Writing the Empirical Journal Article. In Darley, J. M., Zanna, M. P., & Roediger III, H. L. (Eds.), <em>The Compleat Academic</em>.</div>
+                        <div class="source-item">Strunk, W. Jr. & White, E. B. (2000). <em>The Elements of Style</em> (4th ed.). Longman.</div>
+                        <div class="source-item">Ortinau, D. J. (2010). Pursuing a Great Journal Article. <em>Journal of Business Research</em>, 63(10), 1082-1087.</div>
+                        <div class="source-item">Mehta, T. (2021). <em>The Academic's Little Helper: A Writing Guide</em>.</div>
+                        <div class="source-item">Warren, N. L., Farmer, M., Gu, T., & Warren, C. (2021). Marketing Ideas: How to Write Research Articles that Readers Understand and Cite. <em>Journal of Marketing</em>, 85(5), 42-57.</div>
+                        <div class="source-item">Cochrane, J. H. (2005). Writing Tips for Ph.D. Students. <em>University of Chicago Graduate School of Business</em>.</div>
+                    </div>
+                    <div class="source-card">
+                        <div class="source-category">Writing Craft — Harvard Writing Guides</div>
+                        <div class="source-item">Harvard College Writing Center. <em>Brief Guide to Writing in Philosophy</em>.</div>
+                        <div class="source-item">Harvard College Writing Center. <em>Brief Guide to Writing in Psychology</em>.</div>
+                        <div class="source-item">Harvard College Writing Center. <em>Brief Guide to Writing in History</em>.</div>
+                        <div class="source-item">Harvard College Writing Center. <em>Tips for Reading an Assignment Prompt</em>.</div>
+                        <div class="source-item">Harvard College Writing Center. <em>Strategies for Essay Writing</em>.</div>
+                    </div>
+                    <div class="source-card">
+                        <div class="source-category">Theoretical Pillars</div>
+                        <div class="source-item">Dweck, C. S. (2006). <em>Mindset: The New Psychology of Success</em>. Random House. — Growth mindset theory</div>
+                        <div class="source-item">Yeager, D. S. et al. (2019). A national experiment reveals where a growth mindset improves achievement. <em>Nature</em>, 573, 364-369. — Wise interventions at scale</div>
+                        <div class="source-item">Crum, A. J. et al. (2013). Rethinking stress: The role of mindsets in determining the stress response. <em>Journal of Personality and Social Psychology</em>, 104(4), 716-733. — Mindset × physiology</div>
+                        <div class="source-item">Falk, E. B. et al. (2012). Neural activity during health messaging predicts reductions in smoking. <em>Psychological Science</em>, 22(4), 439-445. — Neural self-relevance</div>
+                        <div class="source-item">Mollick, E. (2024). <em>Co-Intelligence: Living and Working with AI</em>. Portfolio. — AI as collaborator, 7 roles in education</div>
+                    </div>
+                    <div class="source-card">
+                        <div class="source-category">AI & Education Research</div>
+                        <div class="source-item">Arora, A. et al. (2025). The Use of Generative AI for Scientific Discovery. <em>Working Paper</em>. — AI-Human Hybrid Method</div>
+                        <div class="source-item">Mollick, E. & Mollick, L. (2023). Using AI to Implement Effective Teaching Strategies in Classrooms. <em>SSRN Working Paper</em>. — 7 AI roles in learning</div>
+                    </div>
+                </div>
+            </div>
+
             <footer class="footer">
-                <div class="footer-main">강 Family Superhero League — 4개국, 하나의 가족, 무한한 힘</div>
-                <div class="footer-credit">opus × bella | the great work × the beautiful</div>
-                <div class="footer-credit">Bella 1.0 × Opus 4.6 | 2026</div>
+                <div class="footer-main">사우디 · 한국 · 캐나다 · 미국<br>네 개의 시간대, 하나의 심장</div>
+                <div class="footer-credit" style="margin-top: 8px; font-family: var(--font-serif-kr); font-size: 13px; color: #888;">
+                    "가족이란, 거리가 아니라 마음으로 재는 거리."
+                </div>
+                <div class="footer-credit" style="margin-top: 16px;">opus × bella · the great work × the beautiful</div>
+                <div class="footer-credit">민주가 만들고, Opus가 함께한 — 강 Family의 AI 허브</div>
+                <div class="footer-credit" style="font-size: 10px; margin-top: 4px; color: #bbb;">Bella 1.0 × Opus 4.6 | 2026</div>
             </footer>
         </div>
     </div>
@@ -1607,14 +2913,7 @@
         }
 
         // ============ WHY IT MATTERS TOGGLE ============
-        const whyToggles = document.querySelectorAll('.why-toggle');
-        whyToggles.forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                const whyMatters = toggle.nextElementSibling;
-                toggle.classList.toggle('open');
-                whyMatters.classList.toggle('open');
-            });
-        });
+        // Note: Why matters is now always visible, no toggle needed
 
         // ============ KEYBOARD NAVIGATION ============
         document.addEventListener('keydown', (e) => {
@@ -1625,8 +2924,223 @@
             }
         });
 
+        // ============ WORLD CLOCK ============
+        function updateClocks() {
+            const zones = [
+                { id: 'yanbu', tz: 'Asia/Riyadh', statusId: 'status-yanbu' },
+                { id: 'seoul', tz: 'Asia/Seoul', statusId: 'status-seoul' },
+                { id: 'toronto', tz: 'America/Toronto', statusId: 'status-toronto' },
+                { id: 'austin', tz: 'America/Chicago', statusId: 'status-austin' }
+            ];
+            zones.forEach(zone => {
+                const now = new Date();
+                const options = { timeZone: zone.tz, hour: '2-digit', minute: '2-digit', hour12: false };
+                const dateOptions = { timeZone: zone.tz, weekday: 'short', month: 'short', day: 'numeric' };
+                const timeStr = now.toLocaleTimeString('en-GB', options);
+                const hour = parseInt(timeStr.split(':')[0]);
+                document.getElementById('time-' + zone.id).textContent = timeStr;
+                const statusEl = document.getElementById(zone.statusId);
+                if (hour >= 7 && hour < 22) {
+                    statusEl.textContent = 'awake';
+                    statusEl.className = 'clock-status awake';
+                } else if (hour >= 22 || hour < 1) {
+                    statusEl.textContent = 'maybe sleeping';
+                    statusEl.className = 'clock-status maybe';
+                } else {
+                    statusEl.textContent = 'sleeping';
+                    statusEl.className = 'clock-status sleeping';
+                }
+            });
+        }
+        updateClocks();
+        setInterval(updateClocks, 30000);
+
+        // ============ WELLNESS MICRO-ACTIVITIES ============
+        const wellnessActivities = [
+            { emoji: "🫁", cat: "호흡", catColor: "#4A6FA5", activity: "4-7-8 호흡법", detail: "4초 들이쉬고 → 7초 멈추고 → 8초 내쉬기. 3번 반복하면 몸이 진정돼요.", timer: 60 },
+            { emoji: "💧", cat: "수분", catColor: "#6B8F71", activity: "물 한 잔의 의식", detail: "지금 물 한 잔 천천히 마셔보세요. 목으로 넘어가는 걸 느끼면서.", timer: 0 },
+            { emoji: "🙏", cat: "감사", catColor: "#C49A6C", activity: "감사한 것 3가지", detail: "오늘 감사한 것 3가지를 떠올려보세요. 작은 것일수록 좋아요. (예: 따뜻한 커피, 하쿠의 꾹꾹이)", timer: 0 },
+            { emoji: "🤸", cat: "스트레칭", catColor: "#C47A6E", activity: "목·어깨 2분 스트레칭", detail: "목을 천천히 왼쪽 → 오른쪽 → 앞으로. 어깨를 크게 5번 돌리기. 컴퓨터 앞에서도 OK!", timer: 120 },
+            { emoji: "👁️", cat: "눈 건강", catColor: "#A07DA0", activity: "20-20-20 눈 휴식", detail: "20초 동안 20피트(6m) 먼 곳을 바라보세요. 20분마다 한 번!", timer: 20 },
+            { emoji: "📱", cat: "연결", catColor: "#8B6B5E", activity: "가족에게 한 줄 메시지", detail: "지금 가족 카톡에 '오늘 뭐 먹었어?' 한마디 보내보세요. 그게 사랑이에요.", timer: 0 },
+            { emoji: "🚶", cat: "움직임", catColor: "#4A6FA5", activity: "5분 걷기", detail: "밖이든 집 안이든 좋아요. 걸으면서 발바닥이 닿는 느낌에 집중해보세요.", timer: 300 },
+            { emoji: "☀️", cat: "에너지", catColor: "#C49A6C", activity: "햇빛 2분 쬐기", detail: "창문 앞이나 밖에서 햇빛을 쬐세요. 비타민 D + 세로토닌 충전!", timer: 120 },
+            { emoji: "🎵", cat: "기분전환", catColor: "#C47A6E", activity: "좋아하는 노래 1곡", detail: "이어폰을 끼고 좋아하는 노래 한 곡을 온전히 들어보세요. 다른 건 잠시 내려놓고.", timer: 0 },
+            { emoji: "✍️", cat: "마음정리", catColor: "#A07DA0", activity: "1문장 일기", detail: "'오늘 나는 _____ 때문에 _____했다.' 딱 한 문장만. 생각을 정리하는 가장 작은 단위.", timer: 0 },
+            { emoji: "🫶", cat: "자기돌봄", catColor: "#6B8F71", activity: "손 마사지 1분", detail: "한 손의 엄지로 반대쪽 손바닥을 천천히 눌러주세요. 의외로 긴장이 풀려요.", timer: 60 },
+            { emoji: "🧊", cat: "리프레시", catColor: "#4A6FA5", activity: "찬물로 세수하기", detail: "찬물로 얼굴을 한번 씻어보세요. 뇌가 깨어나는 느낌!", timer: 0 },
+            { emoji: "🌙", cat: "수면", catColor: "#8B6B5E", activity: "오늘 30분 일찍 자기", detail: "알람을 30분 일찍 맞추는 대신, 30분 일찍 누워보세요. 수면이 모든 걸 바꿔요.", timer: 0 },
+            { emoji: "🐱", cat: "하쿠 시간", catColor: "#8B9DAF", activity: "반려동물과 5분", detail: "하쿠를 (또는 가까운 동물을) 5분간 쓰다듬어 주세요. 옥시토신이 분비돼요!", timer: 300 },
+            { emoji: "😊", cat: "표정", catColor: "#C47A6E", activity: "거울 보고 미소 짓기", detail: "거짓말 같지만 진짜 효과 있어요. 미소 지으면 뇌가 '기분 좋다'고 착각해요. (Crum의 mindset 이론!)", timer: 0 }
+        ];
+        let wellnessIndex = -1;
+        let timerInterval = null;
+
+        function nextWellness() {
+            wellnessIndex = (wellnessIndex + 1) % wellnessActivities.length;
+            // Shuffle on first complete cycle
+            if (wellnessIndex === 0) {
+                for (let i = wellnessActivities.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [wellnessActivities[i], wellnessActivities[j]] = [wellnessActivities[j], wellnessActivities[i]];
+                }
+            }
+            const w = wellnessActivities[wellnessIndex];
+            const emoji = document.getElementById('wellness-emoji');
+            const cat = document.getElementById('wellness-cat');
+            const activity = document.getElementById('wellness-activity');
+            const detail = document.getElementById('wellness-detail');
+            const timerBtn = document.getElementById('timer-btn');
+            const timerDisplay = document.getElementById('wellness-timer');
+
+            // Clear any running timer
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+            timerDisplay.classList.remove('active');
+
+            // Animate out
+            activity.style.opacity = '0';
+            detail.style.opacity = '0';
+            emoji.style.opacity = '0';
+
+            setTimeout(() => {
+                emoji.textContent = w.emoji;
+                emoji.style.opacity = '1';
+                cat.textContent = w.cat;
+                cat.style.background = w.catColor + '15';
+                cat.style.color = w.catColor;
+                activity.textContent = w.activity;
+                activity.style.opacity = '1';
+                detail.textContent = w.detail;
+                detail.style.opacity = '1';
+                timerBtn.style.display = w.timer > 0 ? 'inline-block' : 'none';
+                timerBtn.setAttribute('data-seconds', w.timer);
+                timerBtn.textContent = '⏱ ' + (w.timer >= 60 ? Math.floor(w.timer/60) + '분' : w.timer + '초') + ' 타이머';
+            }, 300);
+        }
+
+        function startTimer() {
+            const timerBtn = document.getElementById('timer-btn');
+            const timerDisplay = document.getElementById('wellness-timer');
+            let seconds = parseInt(timerBtn.getAttribute('data-seconds'));
+
+            if (timerInterval) { clearInterval(timerInterval); }
+            timerDisplay.classList.add('active');
+
+            function updateDisplay() {
+                const m = Math.floor(seconds / 60);
+                const s = seconds % 60;
+                timerDisplay.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+                if (seconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    timerDisplay.textContent = '✨ 완료!';
+                    setTimeout(() => { timerDisplay.classList.remove('active'); }, 2000);
+                }
+                seconds--;
+            }
+            updateDisplay();
+            timerInterval = setInterval(updateDisplay, 1000);
+        }
+
+        // ============ ONBOARDING TOGGLE ============
+        function toggleOnboarding() {
+            const toggle = document.querySelector('.onboarding-toggle');
+            const content = document.getElementById('onboarding-content');
+            toggle.classList.toggle('open');
+            content.classList.toggle('open');
+        }
+
+        // ============ HOW TO USE TOGGLE ============
+        function toggleHowTo(button) {
+            const card = button.closest('.card');
+            const content = card.querySelector('.how-to-content');
+            if (content) {
+                button.classList.toggle('open');
+                content.classList.toggle('open');
+            }
+        }
+
+        // ============ HAKU BIRTHDAY CALCULATION ============
+        function calculateHakuAge() {
+            const birthDate = new Date(2020, 1, 20); // February 20, 2020
+            const today = new Date();
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            const daysDiff = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
+            const daysInCurrentYear = Math.floor((today - new Date(today.getFullYear(), 1, 20)) / (1000 * 60 * 60 * 24));
+            return { age: age, totalDays: daysDiff, daysThisYear: Math.max(0, daysInCurrentYear) };
+        }
+
+        // Update haku birthday badge
+        const hakuInfo = calculateHakuAge();
+        const hakuBadges = document.querySelectorAll('.haku-birthday-badge');
+        hakuBadges.forEach(badge => {
+            badge.textContent = `🎂 ${hakuInfo.age}살 + ${hakuInfo.daysThisYear}일째`;
+        });
+
+        // ============ WAKEUP STATUS LINE ============
+        function updateWakeupStatus() {
+            const zones = [
+                { name: '아빠 강남호', tz: 'Asia/Riyadh' },
+                { name: '엄마 장옥주', tz: 'Asia/Seoul' },
+                { name: '오빠 강두영', tz: 'America/Toronto' },
+                { name: '쌍둥이 강나연', tz: 'America/Chicago' },
+                { name: '쌍둥이 강민주', tz: 'America/Chicago' }
+            ];
+
+            const now = new Date();
+            let allAwake = true;
+            const awakeNames = [];
+            const sleepingNames = [];
+
+            zones.forEach(zone => {
+                const options = { timeZone: zone.tz, hour: '2-digit', minute: '2-digit', hour12: false };
+                const timeStr = now.toLocaleTimeString('en-GB', options);
+                const hour = parseInt(timeStr.split(':')[0]);
+
+                if (hour >= 7 && hour < 22) {
+                    awakeNames.push(zone.name);
+                } else {
+                    allAwake = false;
+                    sleepingNames.push(zone.name);
+                }
+            });
+
+            const statusEl = document.getElementById('wakeup-status-line');
+            if (statusEl) {
+                if (allAwake) {
+                    statusEl.textContent = '지금 모두 깨어있어요! 전화하기 좋은 시간이에요 ✓';
+                } else {
+                    const awakeList = awakeNames.join(', ');
+                    const sleepList = sleepingNames.slice(0, 2).join(', ');
+                    statusEl.textContent = `지금 ${sleepList}은(는) 자고 있어요. ${awakeList} 전화 가능!`;
+                }
+            }
+        }
+
+        // Initial call
+        updateWakeupStatus();
+        // Update every minute
+        setInterval(updateWakeupStatus, 60000);
+
         // ============ INITIAL STATE ============
         updateSidebarActivation();
+
+        // ============ QUOTE SCROLL ANIMATIONS ============
+        const quoteObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('[data-quote]').forEach(quote => {
+            quoteObserver.observe(quote);
+        });
     </script>
 </body>
 </html>
